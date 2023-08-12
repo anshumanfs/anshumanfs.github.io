@@ -10,3 +10,24 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.bg-light {
+    background-color: #f4f6f8 !important;
+}
+
+.marker {
+    position: relative;
+    display: inline;
+    width: auto;
+}
+
+.marker:after {
+    content: "";
+    width: 125px;
+    height: 30px;
+    position: absolute;
+    bottom: -28px;
+    right: -30px;
+    background-image: url(../images/marker.svg);
+    background-repeat: no-repeat;
+}
