@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="css/main.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <meta name="title" content="Anshuman's Portfolio">
+    <meta name="description" content="I am a FullStack Developer and Deep Learning Engineer. I am a big fan of Python and JavaScript. I have a passion for learning and sharing
+    my knowledge with others as publicly as possible.  I am
+    passionate to develop low code tools and frameworks to help developers build applications
+    faster.">
+    <meta property="og:image" content="https://anshuman61.github.io/images/avatar.jpg">
+    <title>Anshuman Nayak / Soil Labels</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        @page {
+            size: 4in 1in;
+            margin: 1cm;
+        }
+
+        /* Set the row size */
+        .row-custom:not(:last-child) {
+            width: 4in;
+            height: 0.85in;
+            display: flex;
+            align-items: stretch;
+            margin-top: 7px;
+            page-break-after: always;
+        }
+
+        .row-custom:last-child {
+            width: 4in;
+            height: 0.85in;
+            display: flex;
+            align-items: stretch;
+            margin-top: 7px;
+        }
+
+        .custom-div {
+            border: 1px solid black;
+            margin: 0.03in 0;
+            flex: 1;
+            /* Allow the inner divs to grow and fill the available space */
+        }
+
+        .inner-div {
+            /* Calculating width based on the given constraints */
+            width: calc((4in - 0.11in * 2 - 0.16in) / 2);
+            /* This is 4in - (0.11in * 2) - (0.16in) / 2 */
+        }
+
+        .inner-div+.inner-div {
+            margin-left: 0.19in;
+            /* Gap between inner divs */
+        }
+
+        /* To add gap on the sides */
+        .row-custom::before,
+        .row-custom::after {
+            content: '';
+            width: 0.11in;
+            background-color: white;
+        }
+
+        .barcode {
+            width: 1.6in;
+            height: auto;
+            margin-top: 0.1in;
+            margin-left: 0.1in;
+        }
+
+        .labelSpan {
+            display: block;
+            text-align: center;
+            font-size: 10px;
+            margin-top: -1px;
+        }
+
+        @media print {
+            #bodyDiv {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bodyDiv">
+        <!-- Put a header containing Generate Soil Labels -->
+        <header class="container-fluid bg-dark text-white py-3">
+            <div class="container">
+                <h1 class="display-4">Generate Soil Labels</h1>
+                <p class="lead">Generate Soil Labels for your soil samples</p>
+            </div>
+        </header>
+        <!-- Put a container to document usability -->
+        <div class="container my-5">
+            <h2>Labeling format</h2>
+            <code>{Country}-{State}-{Locality}-{Lat}-{Long}-{TimeStamp}-{UniqueCode}</code>
+            <p>Example: <code>IN-OR-BBSR-20.2-85.8-2021.08-000001</code></p>
+            <p>If you want to avoid some details that will be replaced by blank spece</p>
+            <p>Example: <code>-OR-BBSR----AN-000001 </code> (Avoid country,lat,long,date) </p>
+        </div>
+        <!-- Put a container with a form to input the number of labels -->
+        <div class="container my-5">
+            <form id="soilLabelForm">
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" id="country" name="country" list="countryList"
+                        autocomplete="off" required>
+                    <data>
+                        <datalist id="countryList">
+                            <option value="IN">India</option>
+                        </datalist>
+                    </data>
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" class="form-control" id="state" name="state" list="stateList" autocomplete="off"
+                        required>
+                    <data>
+                        <datalist id="stateList">
+                            <option value="OR">Odisha</option>
+                        </datalist>
+                    </data>
+                </div>
+                <div class="mb-3">
+                    <label for="locality" class="form-label">Locality</label>
+                    <input type="text" class="form-control" id="locality" name="locality" required>
+                </div>
+                <div class="mb-3">
+                    <label for="latitude" class="form-label">Latitude</label>
+                    <input type="text" class="form-control" id="latitude" name="latitude" required>
+                </div>
+                <div class="mb-3">
+                    <label for="longitude" class="form-label">Longitude</label>
+                    <input type="text" class="form-control" id="longitude" name="longitude" required>
+                </div>
+                <div class="mb-3">
+                    <label for="month" class="form-label">Month</label>
+                    <input type="month" class="form-control" id="month" name="month" required>
+                </div>
+                <div class="mb-3">
+                    <label for="uniqueCode" class="form-label">Unique Code Format</label>
+                    <select name="uniqueCodeFormat" id="uniqueCodeFormat" class="form-control">
+                        <option value="series">Series</option>
+                        <option value="series-with-prefix">Series with Prefix</option>
+                        <option value="numeric-series">Numeric Series</option>
+                        <option value="alphanumeric-series">Alphanumeric Series</option>
+                        <option value="series-with-prefix-n-suffix">Series with Prefix and Suffix</option>
+                        <option value="random">Random</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="uniqueCodePrefix" class="form-label">Prefix</label>
+                    <input type="text" class="form-control" id="uniqueCodePrefix" name="uniqueCodePrefix">
+                </div>
+                <div class="mb-3">
+                    <label for="uniqueCodeSuffix" class="form-label">Suffix</label>
+                    <input type="text" class="form-control" id="uniqueCodeSuffix" name="uniqueCodeSuffix">
+                </div>
+                <div class="mb-3">
+                    <label for="numberOfLabels" class="form-label">Number of rows</label>
+                    <input type="number" class="form-control" id="numberOfRows" name="numberOfRows" value="2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="selectLabel" class="form-label">Select Printer</label>
+                    <select name="selectLabel" id="selectLabel" class="form-control">
+                        <option value="tvs-lp-46-neo">TVS-LP-46-NEO</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="overallBarcodeSeries" class="form-label">Overall Barcode Series</label>
+                    <input type="number" class="form-control" id="overallBarcodeSeries" name="overallBarcodeSeries"
+                        min="10000000" value="10000000" required>
+                </div>
+                <div>
+                    <label for="nameStartingSeries" class="form-label">Name Starting Series</label>
+                    <input type="number" class="form-control" id="nameStartingSeries" name="nameStartingSeries"
+                        min="100000" value="100000" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pageSetup" class="form-label">Page Setup</label>
+                    <select name="pageSetup" id="pageSetup" class="form-control">
+                        <option value="tvs-lp-46-neo">4 * 1 inch Diacut Label</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" id="generateLabels">Generate Labels</button>
+                <button type="button" class="btn btn-info" id="printLabels">
+                    <i class="fa fa-print"></i>
+                    Print Labels
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="labelContainer">
+        <!-- <div class="row-custom">
+            <div class="custom-div inner-div" style="margin-left: -10px;">
+                <svg id="barcode1" class="barcode"></svg>
+                <span class="labelSpan">IN-OR-BBSR-20.2-85.8-2021.08.01-AN-000001</span>
+            </div>
+            <div class="custom-div inner-div">
+                <svg id="barcode2" class="barcode"></svg>
+                <span class="labelSpan">IN-OR-BBSR-20.2-85.8-2021.08.01-AN-000002</span>
+            </div>
+        </div> -->
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/country-state-city-js@2.5.0/src/index.min.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="../js/soilBarcoding.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
