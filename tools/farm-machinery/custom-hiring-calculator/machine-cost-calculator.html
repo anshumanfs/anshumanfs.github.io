@@ -18,6 +18,50 @@
 </head>
 
 <body class="bg-gray-50">
+  <!-- Slideshow Section -->
+  <div id="intro-slideshow" class="fixed inset-0 bg-green-50 z-50 flex items-center justify-center">
+    <div class="relative w-full h-full">
+      <!-- Tractor Animation Container -->
+      <div id="tractor-container"
+        class="absolute inset-0 flex items-end justify-center overflow-hidden pointer-events-none p-4">
+        <div id="tractor" class="w-48 h-48 md:w-64 md:h-64 mb-8"></div>
+      </div>
+
+      <!-- Text Elements -->
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+        <h1 class="text-4xl font-bold text-green-800 mb-8 animate-fade-in" id="title-text">
+          Farm Machinery Custom Hiring Cost Calculator
+        </h1>
+
+        <div class="space-y-6 text-green-700 animate-fade-in-delayed">
+          <div class="developers">
+            <p class="font-semibold mb-2">Developed by:</p>
+            <p>Dr. Dwarika Mohan Das</p>
+            <p class="text-sm">Scientist (Agricultural Engineering), KVK Jagatsinghpur</p>
+            <p class="mt-2">Prof. Prasanjit Mishra</p>
+            <p class="text-sm">Dean Extension Education, OUAT Bhubaneswar</p>
+          </div>
+
+          <div class="designer mt-4">
+            <p class="font-semibold mb-2">Design by:</p>
+            <p>Er. Anshuman Nayak</p>
+            <p class="text-sm">Research Scholar, AgFE, IIT Kharagpur</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skip Button -->
+    <button id="skip-intro"
+      class="absolute bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+      Skip Intro
+    </button>
+  </div>
+
+  <!-- Add required scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="./intro-animation.js"></script>
+
   <div class="container mx-auto px-4 py-8 max-w-4xl">
     <!-- Language selector -->
     <div class="flex justify-end mb-4">
@@ -270,17 +314,19 @@
       </div>
     </div>
     <footer class="max-w-4xl mx-auto px-4 py-6 border-t border-gray-200 mt-8">
-      <div class="grid grid-cols-1 gap-4 text-center md:text-left text-gray-600 text-sm">
-        <div class="space-y-2">
+      <div class="text-center text-gray-600 text-sm">
+        <div class="space-y-3">
           <p>
             <span data-i18n="footer.appName"></span>
             &copy; <span data-i18n="footer.year"></span>
           </p>
-          <p class="md:text-justify">
+          <p>
             <span data-i18n="footer.credits.development"></span>
             <strong><span data-i18n="footer.developers.scientist.name"></span></strong>
             (<span data-i18n="footer.developers.scientist.role"></span>,
-            <span data-i18n="footer.developers.scientist.org"></span>),
+            <span data-i18n="footer.developers.scientist.org"></span>)
+          </p>
+          <p>
             <strong><span data-i18n="footer.developers.dean.name"></span></strong>
             (<span data-i18n="footer.developers.dean.role"></span>,
             <span data-i18n="footer.developers.dean.org"></span>)

@@ -892,12 +892,21 @@ function printReport() {
   footer.style.paddingTop = '10px';
 
   const copyright = document.createElement('p');
-  copyright.textContent = `${i18next.t('footer.copyright')} © 2025`;
+  copyright.textContent = `${i18next.t('footer.appName')} © ${i18next.t('footer.year')}`;
   footer.appendChild(copyright);
 
-  const authorInfo = document.createElement('p');
-  authorInfo.textContent = i18next.t('footer.developed');
-  footer.appendChild(authorInfo);
+  // Developer credits
+  const scientist = document.createElement('p');
+  scientist.textContent = `${i18next.t('footer.credits.development')} ${i18next.t('footer.developers.scientist.name')} (${i18next.t('footer.developers.scientist.role')}, ${i18next.t('footer.developers.scientist.org')})`;
+  footer.appendChild(scientist);
+
+  const dean = document.createElement('p');
+  dean.textContent = `${i18next.t('footer.developers.dean.name')} (${i18next.t('footer.developers.dean.role')}, ${i18next.t('footer.developers.dean.org')})`;
+  footer.appendChild(dean);
+
+  const engineer = document.createElement('p');
+  engineer.textContent = `${i18next.t('footer.credits.design')} ${i18next.t('footer.developers.engineer.name')} (${i18next.t('footer.developers.engineer.role')})`;
+  footer.appendChild(engineer);
 
   printContents.appendChild(footer);
 
