@@ -90,8 +90,28 @@ const resources = {
         perDay: "per day"
       },
       footer: {
-        copyright: "Farm Machinery Custom Hiring Cost Calculator",
-        developed: "Developed by Dr. Dwarika Mohan Das and Designed by Anshuman Nayak"
+        appName: "Farm Machinery Custom Hiring Cost Calculator",
+        year: "2025",
+        developers: {
+          scientist: {
+            name: "Dr. Dwarika Mohan Das",
+            role: "Scientist",
+            org: "KVK Jagatsinghpur"
+          },
+          dean: {
+            name: "Prof. Prasanjit Mishra",
+            role: "Dean Extension Education",
+            org: "OUAT Bhubaneswar"
+          },
+          engineer: {
+            name: "Er. Anshuman Nayak",
+            role: "Research Scholar IIT Kharagpur"
+          }
+        },
+        credits: {
+          development: "Developed by",
+          design: "Scripted & Designed by"
+        }
       }
     }
   },
@@ -176,8 +196,28 @@ const resources = {
         perDay: "प्रति दिन"
       },
       footer: {
-        copyright: "कृषि मशीनरी कस्टम हायरिंग लागत कैलकुलेटर",
-        developed: "डॉ. द्वारिका मोहन दास द्वारा विकसित और अंशुमन नायक द्वारा डिज़ाइन किया गया"
+        appName: "कृषि मशीनरी कस्टम हायरिंग लागत कैलकुलेटर",
+        year: "२०२५",
+        developers: {
+          scientist: {
+            name: "डॉ. द्वारिका मोहन दास",
+            role: "वैज्ञानिक",
+            org: "केवीके जगतसिंहपुर"
+          },
+          dean: {
+            name: "प्रो. प्रसनजीत मिश्रा",
+            role: "डीन विस्तार शिक्षा",
+            org: "ओयूएटी भुवनेश्वर"
+          },
+          engineer: {
+            name: "इंजी. अंशुमन नायक",
+            role: "रिसर्च स्कॉलर आईआईटी खड़गपुर"
+          }
+        },
+        credits: {
+          development: "द्वारा विकसित",
+          design: "द्वारा स्क्रिप्ट और डिज़ाइन"
+        }
       }
     }
   },
@@ -262,8 +302,28 @@ const resources = {
         perDay: "ପ୍ରତିଦିନ"
       },
       footer: {
-        copyright: "କୃଷି ଯନ୍ତ୍ରପାତି କଷ୍ଟମ ଭଡ଼ା ମୂଲ୍ୟ କ୍ୟାଲକୁଲେଟର",
-        developed: "ଡା. ଦ୍ୱାରିକା ମୋହନ ଦାସଙ୍କ ଦ୍ୱାରା ବିକଶିତ ଏବଂ ଅଂଶୁମାନ ନାୟକଙ୍କ ଦ୍ୱାରା ଡିଜାଇନ୍"
+        appName: "କୃଷି ଯନ୍ତ୍ରପାତି ଭଡ଼ା ମୂଲ୍ୟ କ୍ୟାଲକୁଲେଟର",
+        year: "୨୦୨୫",
+        developers: {
+          scientist: {
+            name: "ଡା. ଦ୍ୱାରିକା ମୋହନ ଦାସ",
+            role: "ବୈଜ୍ଞାନିକ",
+            org: "କେଭିକେ ଜଗତସିଂହପୁର"
+          },
+          dean: {
+            name: "ପ୍ରଫେସର ପ୍ରସନଜିତ ମିଶ୍ର",
+            role: "ଡିନ୍ ଏକ୍ସଟେନସନ ଏଡୁକେସନ",
+            org: "ଓୟୁଏଟି ଭୁବନେଶ୍ୱର"
+          },
+          engineer: {
+            name: "ଇଂ. ଅଂଶୁମାନ ନାୟକ",
+            role: "ରିସର୍ଚ୍ଚ ସ୍କଲାର ଆଇଆଇଟି ଖରଗପୁର"
+          }
+        },
+        credits: {
+          development: "ଦ୍ୱାରା ବିକଶିତ",
+          design: "ଦ୍ୱାରା ସ୍କ୍ରିପ୍ଟ ଏବଂ ଡିଜାଇନ"
+        }
       }
     }
   }
@@ -458,7 +518,7 @@ document.getElementById('calculate-results').addEventListener('click', () => {
   // Update final results
   document.getElementById('totalOperationCost').textContent = `${totalOperationCost.toFixed(2)} Rs/h`;
   document.getElementById('customHiringCost').textContent = `${customHiringCost.toFixed(2)} Rs/h`;
-  
+
   // Update the profit percentage display
   document.getElementById('profitPercentDisplay').textContent = profitPercent;
 

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm Machinery Custom Hiring Cost Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Add i18next libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.16/i18next.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/i18next-http-backend@1.4.0/i18nextHttpBackend.min.js"></script>
+</head>
+
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Language selector -->
+    <div class="flex justify-end mb-4">
+      <div class="inline-flex rounded-md shadow-sm" role="group">
+        <button id="lang-en" type="button"
+          class="language-btn px-4 py-2 text-sm font-medium text-white bg-green-700 border border-green-700 rounded-l-lg hover:bg-green-800 focus:z-10 focus:ring-2 focus:ring-green-500">
+          English
+        </button>
+        <button id="lang-hi" type="button"
+          class="language-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-500">
+          हिंदी
+        </button>
+        <button id="lang-or" type="button"
+          class="language-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-500">
+          ଓଡ଼ିଆ
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+      <h1 class="text-2xl md:text-3xl font-bold text-center text-green-700 mb-8" data-i18n="title">Farm Machinery Custom
+        Hiring Cost Calculator</h1>
+
+      <!-- Progress Bar -->
+      <div class="mb-8 overflow-hidden">
+        <div class="flex flex-wrap text-xs sm:text-sm justify-between mb-2">
+          <span id="step1-label" class="font-medium text-green-700 mb-1 mr-1" data-i18n="userInfo.title">User
+            Info</span>
+          <span id="step2-label" class="font-medium text-gray-400 mb-1 mr-1" data-i18n="fixedCost.title">Fixed
+            Cost</span>
+          <span id="step3-label" class="font-medium text-gray-400 mb-1 mr-1" data-i18n="variableCost.title">Variable
+            Cost</span>
+          <span id="step4-label" class="font-medium text-gray-400 mb-1" data-i18n="results.title">Results</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+          <div id="progress-bar" class="bg-green-600 h-2.5 rounded-full" style="width: 25%"></div>
+        </div>
+      </div>
+
+      <!-- Step 1: User Information -->
+      <div id="step1" class="step">
+        <h2 class="text-xl font-semibold mb-4 text-green-600"><i class="fas fa-user mr-2"></i><span
+            data-i18n="userInfo.title">User Information</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="userInfo.fullName">Full Name</label>
+            <input type="text" id="userName"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="Enter your name" data-i18n-placeholder="userInfo.enterName">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="userInfo.mobileNumber">Mobile
+              Number</label>
+            <input type="text" id="userMobile"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="Enter your mobile number" data-i18n-placeholder="userInfo.enterMobile">
+          </div>
+        </div>
+        <div class="text-right">
+          <button id="next-to-fixed"
+            class="bg-green-600 text-white font-medium py-2 px-4 rounded-md hover:bg-green-700 transition"><span
+              data-i18n="navigation.next">Next</span> <i class="fas fa-arrow-right ml-1"></i></button>
+        </div>
+      </div>
+
+      <!-- Step 2: Fixed Cost Calculation -->
+      <div id="step2" class="step hidden">
+        <h2 class="text-xl font-semibold mb-4 text-green-600"><i class="fas fa-calculator mr-2"></i><span
+            data-i18n="fixedCost.title">Fixed Cost Calculation</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="fixedCost.purchasePrice">Purchase
+              Price of the Machine (Rs)</label>
+            <input type="number" id="purchasePrice"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="500000">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="fixedCost.machineLife">Life of the
+              Machine (Years)</label>
+            <input type="number" id="machineLife"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="5">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="fixedCost.hoursPerYear">Hours of
+              Operation per Year</label>
+            <input type="number" id="hoursPerYear"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="1000">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="fixedCost.interestRate">Rate of
+              Interest (%)</label>
+            <input type="number" id="interestRate"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="11">
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <button id="back-to-user"
+            class="bg-gray-400 text-white font-medium py-2 px-4 rounded-md hover:bg-gray-500 transition"><i
+              class="fas fa-arrow-left mr-1"></i> <span data-i18n="navigation.back">Back</span></button>
+          <button id="next-to-variable"
+            class="bg-green-600 text-white font-medium py-2 px-4 rounded-md hover:bg-green-700 transition"><span
+              data-i18n="navigation.next">Next</span> <i class="fas fa-arrow-right ml-1"></i></button>
+        </div>
+      </div>
+
+      <!-- Step 3: Variable Cost Calculation -->
+      <div id="step3" class="step hidden">
+        <h2 class="text-xl font-semibold mb-4 text-green-600"><i class="fas fa-chart-line mr-2"></i><span
+            data-i18n="variableCost.title">Variable Cost Calculation</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="variableCost.fuelConsumption">Fuel
+              Consumption (L/h)</label>
+            <input type="number" id="fuelConsumption"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="4">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="variableCost.fuelCost">Cost of Fuel
+              (Rs/L)</label>
+            <input type="number" id="fuelCost"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="100">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="variableCost.numWorkers">Number of
+              Workers</label>
+            <input type="number" id="numWorkers"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="2">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="variableCost.wagesWorkers">Wages per
+              Day for Workers (Rs)</label>
+            <input type="number" id="wagesWorkers"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="450">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="variableCost.numDrivers">Number of
+              Drivers</label>
+            <input type="number" id="numDrivers"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="1">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="variableCost.wagesDrivers">Wages per
+              Day for Drivers (Rs)</label>
+            <input type="number" id="wagesDrivers"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="700">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="variableCost.profitPercent">Profit
+              Percentage for Custom Hiring (%)</label>
+            <input type="number" id="profitPercent"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value="10">
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <button id="back-to-fixed"
+            class="bg-gray-400 text-white font-medium py-2 px-4 rounded-md hover:bg-gray-500 transition"><i
+              class="fas fa-arrow-left mr-1"></i> <span data-i18n="navigation.back">Back</span></button>
+          <button id="calculate-results"
+            class="bg-green-600 text-white font-medium py-2 px-4 rounded-md hover:bg-green-700 transition"><span
+              data-i18n="navigation.calculate">Calculate Results</span> <i class="fas fa-calculator ml-1"></i></button>
+        </div>
+      </div>
+
+      <!-- Step 4: Results -->
+      <div id="step4" class="step hidden">
+        <h2 class="text-xl font-semibold mb-4 text-green-600"><i class="fas fa-file-invoice-dollar mr-2"></i><span
+            data-i18n="results.title">Cost Calculation Results</span></h2>
+
+        <div class="mb-6">
+          <h3 class="text-lg font-medium mb-3 text-green-700" data-i18n="results.fixedCosts">Fixed Cost Components</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="py-2 px-4 border-b text-left" data-i18n="results.component">Component</th>
+                  <th class="py-2 px-4 border-b text-right" data-i18n="results.value">Value (Rs/h)</th>
+                </tr>
+              </thead>
+              <tbody id="fixedCostTable">
+                <!-- Fixed cost items will be inserted here by JavaScript -->
+              </tbody>
+              <tfoot class="bg-gray-50 font-medium">
+                <tr>
+                  <td class="py-2 px-4 border-t" data-i18n="results.totalFixedCost">Total Fixed Cost</td>
+                  <td id="totalFixedCost" class="py-2 px-4 border-t text-right">-</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="text-lg font-medium mb-3 text-green-700" data-i18n="results.variableCosts">Variable Cost Components
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="py-2 px-4 border-b text-left" data-i18n="results.component">Component</th>
+                  <th class="py-2 px-4 border-b text-right" data-i18n="results.value">Value (Rs/h)</th>
+                </tr>
+              </thead>
+              <tbody id="variableCostTable">
+                <!-- Variable cost items will be inserted here by JavaScript -->
+              </tbody>
+              <tfoot class="bg-gray-50 font-medium">
+                <tr>
+                  <td class="py-2 px-4 border-t" data-i18n="results.totalVariableCost">Total Variable Cost</td>
+                  <td id="totalVariableCost" class="py-2 px-4 border-t text-right">-</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <div class="bg-green-50 rounded-lg p-4 mb-6">
+          <h3 class="text-lg font-medium mb-3 text-green-700" data-i18n="results.finalResults">Final Results</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-white p-3 rounded-lg border border-green-200 shadow-sm">
+              <p class="text-sm text-gray-600" data-i18n="results.totalOperationCost">Total Cost of Operation</p>
+              <p id="totalOperationCost" class="text-xl font-bold text-green-700">- Rs/h</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-green-200 shadow-sm">
+              <p class="text-sm text-gray-600" id="customHiringCostLabel">Custom Hiring Cost (with <span
+                  id="profitPercentDisplay">10</span>% profit)</p>
+              <p id="customHiringCost" class="text-xl font-bold text-green-700">- Rs/h</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
+          <button id="back-to-variable"
+            class="bg-gray-400 text-white font-medium py-2 px-4 rounded-md hover:bg-gray-500 transition w-full sm:w-auto"><i
+              class="fas fa-arrow-left mr-1"></i> <span data-i18n="navigation.back">Back</span></button>
+          <button id="download-pdf"
+            class="bg-green-600 text-white font-medium py-2 px-4 rounded-md hover:bg-green-700 transition w-full sm:w-auto"><i
+              class="fas fa-file-pdf mr-1"></i> <span data-i18n="navigation.exportPdf">Export to PDF</span></button>
+        </div>
+      </div>
+    </div>
+    <footer class="max-w-4xl mx-auto px-4 py-6 border-t border-gray-200 mt-8">
+      <div class="grid grid-cols-1 gap-4 text-center md:text-left text-gray-600 text-sm">
+        <div class="space-y-2">
+          <p>
+            <span data-i18n="footer.appName"></span>
+            &copy; <span data-i18n="footer.year"></span>
+          </p>
+          <p class="md:text-justify">
+            <span data-i18n="footer.credits.development"></span>
+            <strong><span data-i18n="footer.developers.scientist.name"></span></strong>
+            (<span data-i18n="footer.developers.scientist.role"></span>,
+            <span data-i18n="footer.developers.scientist.org"></span>),
+            <strong><span data-i18n="footer.developers.dean.name"></span></strong>
+            (<span data-i18n="footer.developers.dean.role"></span>,
+            <span data-i18n="footer.developers.dean.org"></span>)
+          </p>
+          <p>
+            <span data-i18n="footer.credits.design"></span>
+            <strong><span data-i18n="footer.developers.engineer.name"></span></strong>
+            (<span data-i18n="footer.developers.engineer.role"></span>)
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Add responsive meta tag to ensure proper rendering on all devices -->
+  <script>
+    // Add to head if not already present
+    if (!document.querySelector('meta[name="viewport"]')) {
+      const viewport = document.createElement('meta');
+      viewport.name = 'viewport';
+      viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+      document.head.appendChild(viewport);
+    }
+  </script>
+
+  <script src="./machine-cost-calculator.js"></script>
+</body>
+
+</html>
