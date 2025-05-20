@@ -98,6 +98,11 @@ const resources = {
             role: "Scientist",
             org: "KVK Jagatsinghpur"
           },
+          head: {
+            name: "Dr. Jibanjit Sen",
+            role: "Senior Scientist and Head",
+            org: "KVK Jagatsinghpur"
+          },
           dean: {
             name: "Prof. Prasanjit Mishra",
             role: "Dean Extension Education",
@@ -204,6 +209,11 @@ const resources = {
             role: "वैज्ञानिक",
             org: "केवीके जगतसिंहपुर"
           },
+          head: {
+            name: "डॉ. जीबनजीत सेन",
+            role: "वरिष्ठ वैज्ञानिक एवं प्रमुख",
+            org: "केवीके जगतसिंहपुर"
+          },
           dean: {
             name: "प्रो. प्रसनजीत मिश्रा",
             role: "डीन विस्तार शिक्षा",
@@ -246,8 +256,8 @@ const resources = {
       },
       variableCost: {
         title: "ପରିବର୍ତ୍ତନଶୀଳ ମୂଲ୍ୟ ଗଣନା",
-        fuelConsumption: "ଜ୍ୱାଳାନୀ ଖପତ (L/h)",
-        fuelCost: "ଜ୍ୱାଳାନୀ ମୂଲ୍ୟ (ଟଙ୍କା/L)",
+        fuelConsumption: "ଇନ୍ଧନ(ପେଟ୍ରୋଲ/ଡିଜେଲ) ଖପତ (L/h)",
+        fuelCost: "ଇନ୍ଧନ(ପେଟ୍ରୋଲ/ଡିଜେଲ) ମୂଲ୍ୟ (ଟଙ୍କା/L)",
         numWorkers: "କର୍ମଚାରୀଙ୍କ ସଂଖ୍ୟା",
         wagesWorkers: "କର୍ମଚାରୀଙ୍କ ପାଇଁ ଦୈନିକ ମଜୁରି (ଟଙ୍କା)",
         numDrivers: "ଡ୍ରାଇଭରଙ୍କ ସଂଖ୍ୟା",
@@ -275,7 +285,7 @@ const resources = {
       },
       variableComponents: {
         repairMaintenance: "ମରାମତି ଏବଂ ରକ୍ଷଣାବେକ୍ଷଣ ମୂଲ୍ୟ",
-        fuelCost: "ଜ୍ୱାଳାନୀ ମୂଲ୍ୟ",
+        fuelCost: "ଇନ୍ଧନ(ପେଟ୍ରୋଲ/ଡିଜେଲ) ମୂଲ୍ୟ",
         lubricatingOil: "ଲୁବ୍ରିକେଟିଂ ତେଲ ମୂଲ୍ୟ",
         operatorCost: "ଅପରେଟର ମୂଲ୍ୟ"
       },
@@ -289,8 +299,8 @@ const resources = {
         machineLife: "ଯନ୍ତ୍ର ଜୀବନ",
         hoursPerYear: "ବର୍ଷକୁ ଘଣ୍ଟା",
         interestRate: "ସୁଧ ହାର",
-        fuelConsumption: "ଜ୍ୱାଳାନୀ ଖପତ",
-        fuelCost: "ଜ୍ୱାଳାନୀ ମୂଲ୍ୟ",
+        fuelConsumption: "ଇନ୍ଧନ ଖପତ",
+        fuelCost: "ଇନ୍ଧନ ମୂଲ୍ୟ",
         workers: "କର୍ମଚାରୀ",
         drivers: "ଡ୍ରାଇଭର",
         profitPercent: "ଲାଭ ପ୍ରତିଶତ",
@@ -308,6 +318,11 @@ const resources = {
           scientist: {
             name: "ଡା. ଦ୍ୱାରିକା ମୋହନ ଦାସ",
             role: "ବୈଜ୍ଞାନିକ",
+            org: "କେଭିକେ ଜଗତସିଂହପୁର"
+          },
+          head: {
+            name: "ଡା. ଜୀବନଜିତ୍ ସେନ୍",
+            role: "ବରିଷ୍ଠ ବୈଜ୍ଞାନିକ ଏବଂ ମୁଖ୍ୟ",
             org: "କେଭିକେ ଜଗତସିଂହପୁର"
           },
           dean: {
@@ -899,6 +914,10 @@ function printReport() {
   const scientist = document.createElement('p');
   scientist.textContent = `${i18next.t('footer.credits.development')} ${i18next.t('footer.developers.scientist.name')} (${i18next.t('footer.developers.scientist.role')}, ${i18next.t('footer.developers.scientist.org')})`;
   footer.appendChild(scientist);
+
+  const head = document.createElement('p');
+  head.textContent = `${i18next.t('footer.developers.head.name')} (${i18next.t('footer.developers.head.role')}, ${i18next.t('footer.developers.head.org')})`;
+  footer.appendChild(head);
 
   const dean = document.createElement('p');
   dean.textContent = `${i18next.t('footer.developers.dean.name')} (${i18next.t('footer.developers.dean.role')}, ${i18next.t('footer.developers.dean.org')})`;
