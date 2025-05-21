@@ -11,7 +11,7 @@ const calculatorConfig = {
 const resources = {
   en: {
     translation: {
-      title: "Farm Machinery Custom Hiring Cost Calculator",
+      title: "Farm Machinery Custom Hiring Cost Calculation Software",
       userInfo: {
         title: "User Information",
         fullName: "Full Name",
@@ -90,7 +90,7 @@ const resources = {
         perDay: "per day"
       },
       footer: {
-        appName: "Farm Machinery Custom Hiring Cost Calculator",
+        appName: "Farm Machinery Custom Hiring Cost Calculation Software",
         year: "2025",
         developers: {
           scientist: {
@@ -122,7 +122,7 @@ const resources = {
   },
   hi: {
     translation: {
-      title: "कृषि मशीनरी कस्टम हायरिंग लागत कैलकुलेटर",
+      title: "कृषि मशीनरी कस्टम हायरिंग लागत गणना सॉफ्टवेयर",
       userInfo: {
         title: "उपयोगकर्ता जानकारी",
         fullName: "पूरा नाम",
@@ -201,7 +201,7 @@ const resources = {
         perDay: "प्रति दिन"
       },
       footer: {
-        appName: "कृषि मशीनरी कस्टम हायरिंग लागत कैलकुलेटर",
+        appName: "कृषि मशीनरी कस्टम हायरिंग लागत गणना सॉफ्टवेयर",
         year: "२०२५",
         developers: {
           scientist: {
@@ -233,7 +233,7 @@ const resources = {
   },
   or: {
     translation: {
-      title: "କୃଷି ଯନ୍ତ୍ରପାତି ଭଡ଼ା ମୂଲ୍ୟ କ୍ୟାଲକୁଲେଟର",
+      title: "କୃଷି ଯନ୍ତ୍ରପାତି ଭଡ଼ା ମୂଲ୍ୟ ଗଣନା ସଫ୍ଟୱେର୍",
       userInfo: {
         title: "ବ୍ୟବହାରକାରୀ ସୂଚନା",
         fullName: "ପୁରା ନାମ",
@@ -312,7 +312,7 @@ const resources = {
         perDay: "ପ୍ରତିଦିନ"
       },
       footer: {
-        appName: "କୃଷି ଯନ୍ତ୍ରପାତି ଭଡ଼ା ମୂଲ୍ୟ କ୍ୟାଲକୁଲେଟର",
+        appName: "କୃଷି ଯନ୍ତ୍ରପାତି ଭଡ଼ା ମୂଲ୍ୟ ଗଣନା ସଫ୍ଟୱେର୍",
         year: "୨୦୨୫",
         developers: {
           scientist: {
