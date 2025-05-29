@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Support System for Rainfall Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #d1fae5; /* Lighter green border for tables */ padding: 8px; text-align: left; }
+        th { background-color: #ecfdf5; /* Very light green for table headers */ }
+        .sticky-header { position: sticky; top: 0; z-index: 10; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 to-emerald-200 min-h-screen p-4 md:p-8">
+    <div class="container mx-auto bg-white shadow-2xl rounded-lg p-6 md:p-10">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-green-700">🌧️ Decision Support System for Rainfall Analysis</h1>
+            <p class="text-gray-600 mt-2">Upload your rainfall data to generate insights and reports.</p>
+        </header>
+
+        <section id="inputSection" class="mb-8 p-6 bg-green-50 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold text-green-600 mb-4">1. Upload Data File</h2>
+            <div class="mb-4">
+                <label for="fileInput" class="block text-sm font-medium text-gray-700 mb-1">Select CSV, XLSX, or XLS file:</label>
+                <input type="file" id="fileInput" accept=".csv, .xlsx, .xls" class="block w-full text-sm text-slate-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-green-100 file:text-green-700
+                    hover:file:bg-green-200
+                "/>
+            </div>
+
+            <div id="metadataInput" class="hidden mt-6 space-y-4">
+                <h3 class="text-lg font-medium text-green-600">Station Details (if not in file header):</h3>
+                <div>
+                    <label for="station1Name" class="block text-sm font-medium text-gray-700">Station 1 Name:</label>
+                    <input type="text" id="station1Name" placeholder="e.g., StationA" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                </div>
+                <div>
+                    <label for="station1LatLon" class="block text-sm font-medium text-gray-700">Station 1 Lat,Lon:</label>
+                    <input type="text" id="station1LatLon" placeholder="e.g., 19.75, 85.5" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                </div>
+                <div>
+                    <label for="station2Name" class="block text-sm font-medium text-gray-700">Station 2 Name:</label>
+                    <input type="text" id="station2Name" placeholder="e.g., StationB" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                </div>
+                <div>
+                    <label for="station2LatLon" class="block text-sm font-medium text-gray-700">Station 2 Lat,Lon:</label>
+                    <input type="text" id="station2LatLon" placeholder="e.g., 20.001, 86.25" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                </div>
+            </div>
+            <button id="processButton" class="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-150 ease-in-out disabled:opacity-50">
+                Process Data
+            </button>
+            <div id="loadingIndicator" class="hidden text-center mt-4">
+                <p class="text-green-600 animate-pulse">Processing data, please wait...</p>
+            </div>
+        </section>
+
+        <section id="resultsSection" class="hidden">
+            <header class="sticky-header bg-white py-4 mb-1 border-b">
+                 <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-semibold text-green-600">2. Analysis Results</h2>
+                    <div class="flex space-x-2">
+                        <button id="exportCsvButton" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-md text-sm shadow">Export CSV</button>
+                        <button id="exportXlsxButton" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-4 rounded-md text-sm shadow">Export XLSX</button>
+                        <button id="exportPdfButton" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md text-sm shadow">Export PDF</button>
+                    </div>
+                </div>
+                <div class="mt-4 border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-4" aria-label="Tabs">
+                        <a href="#" data-tab="annual" class="tab-link whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm border-green-500 text-green-600">Annual Summary</a>
+                        <a href="#" data-tab="monthly" class="tab-link whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Monthly Summary</a>
+                        <a href="#" data-tab="rainyDays" class="tab-link whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Rainy Days</a>
+                        <a href="#" data-tab="drought" class="tab-link whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Drought Analysis</a>
+                    </nav>
+                </div>
+            </header>
+
+            <div id="annualContent" class="tab-content active p-4">
+                <h3 class="text-xl font-semibold text-green-500 mb-3">Annual Rainfall & Deviation</h3>
+                <div class="overflow-x-auto">
+                    <table id="annualTable" class="min-w-full"></table>
+                </div>
+            </div>
+            <div id="monthlyContent" class="tab-content p-4">
+                <h3 class="text-xl font-semibold text-green-500 mb-3">Monthly Rainfall</h3>
+                <div class="overflow-x-auto">
+                    <table id="monthlyTable" class="min-w-full"></table>
+                </div>
+            </div>
+            <div id="rainyDaysContent" class="tab-content p-4">
+                <h3 class="text-xl font-semibold text-green-500 mb-3">Number of Rainy Days</h3>
+                <div class="overflow-x-auto">
+                    <table id="rainyDaysTable" class="min-w-full"></table>
+                </div>
+            </div>
+             <div id="droughtContent" class="tab-content p-4">
+                <h3 class="text-xl font-semibold text-green-500 mb-3">Drought Classification (Based on Annual Deviation)</h3>
+                 <p class="text-sm text-gray-500 mb-2">Deviation > -20%: No Drought; -20% to -40%: Mild Drought; <= -40%: Moderate Drought.</p>
+                <div class="overflow-x-auto">
+                    <table id="droughtTable" class="min-w-full"></table>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 text-sm text-gray-500">
+            <p>&copy; <span id="currentYear"></span> Rainfall Analysis DSS. Developed By Dr. Dwarika Mohan Das & Er. Anshuman Nayak</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
