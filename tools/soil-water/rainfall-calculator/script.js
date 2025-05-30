@@ -16,6 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const monthlyTable = document.getElementById('monthlyTable');
     const rainyDaysTable = document.getElementById('rainyDaysTable');
     const droughtTable = document.getElementById('droughtTable');
+    // Add Dry Spell Analysis elements
+    const drySpellTable = document.getElementById('drySpellTable');
+    const drySpellMinLengthInput = document.getElementById('drySpellMinLength');
+    const drySpellMaxLengthInput = document.getElementById('drySpellMaxLength');
+    const drySpellStartDateInput = document.getElementById('drySpellStartDate');
+    const drySpellEndDateInput = document.getElementById('drySpellEndDate');
+    const calculateDrySpellButton = document.getElementById('calculateDrySpellButton');
+    const drySpellLoadingIndicator = document.getElementById('drySpellLoadingIndicator');
 
     // Export Buttons
     const exportCsvButton = document.getElementById('exportCsvButton');
@@ -32,18 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
         s1Name: "Station1", s1Coords: "N/A",
         s2Name: "Station2", s2Coords: "N/A"
     };
-    let processedData = null; // To store all calculated results for export
+    let processedData = null;
+    let allParsedDailyData = [];
+    let drySpellResultsData = [];
 
     fileInput.addEventListener('change', () => {
         if (fileInput.files.length > 0) {
             processButton.disabled = false;
-            resultsSection.classList.add('hidden'); // Hide previous results
+            resultsSection.classList.add('hidden');
+            calculateDrySpellButton && (calculateDrySpellButton.disabled = true);
+            drySpellTable && (drySpellTable.innerHTML = '');
+            drySpellResultsData = [];
         } else {
             processButton.disabled = true;
         }
     });
 
     processButton.addEventListener('click', handleFile);
+    if (calculateDrySpellButton) calculateDrySpellButton.addEventListener('click', handleDrySpellCalculation);
 
     tabLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -82,7 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!file) return;
 
         showLoading(true);
-        resultsSection.classList.add('hidden'); // Hide previous results
+        resultsSection.classList.add('hidden');
+        allParsedDailyData = [];
+        drySpellResultsData = [];
+        drySpellTable && (drySpellTable.innerHTML = '');
+        calculateDrySpellButton && (calculateDrySpellButton.disabled = true);
 
         // Update stationInfo from input fields if they are visible and filled
         if (!metadataInputDiv.classList.contains('hidden')) {
@@ -114,7 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
             processedData = processRainfallData(data);
             displayResults(processedData);
             resultsSection.classList.remove('hidden');
-
+            allParsedDailyData = data;
+            setDefaultDrySpellDates();
+            calculateDrySpellButton && (calculateDrySpellButton.disabled = false);
         } catch (error) {
             console.error("Error processing file:", error);
             alert(`Error processing file: ${error.message}`);
@@ -468,8 +488,185 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         droughtTable.innerHTML = droughtHtml + '</tbody>';
 
+        // Dry Spell Table
+        if (drySpellResultsData && drySpellResultsData.length > 0) {
+            let drySpellHtml = `<thead><tr>
+                <th>Year</th>
+                <th>Dry Spells ${s1} (Count)</th>
+                <th>Dry Spells ${s2} (Count)</th>
+                <th>Avg Dry Spells (Count)</th>
+            </tr></thead><tbody>`;
+            drySpellResultsData.forEach(row => {
+                drySpellHtml += `<tr>
+                    <td>${row.year}</td>
+                    <td>${row.s1Count}</td>
+                    <td>${row.s2Count}</td>
+                    <td>${row.avgCount.toFixed(1)}</td>
+                </tr>`;
+            });
+            drySpellTable.innerHTML = drySpellHtml + '</tbody>';
+        } else {
+            drySpellTable.innerHTML = '<tbody><tr><td colspan="4" class="text-center">No dry spells found for the selected criteria or no data in range.</td></tr></tbody>';
+        }
+
         // Set default tab
         tabLinks[0].click();
+    }
+
+    // --- Dry Spell Analysis ---
+    function setDefaultDrySpellDates() {
+        if (!processedData || !processedData.annualRainfall || processedData.annualRainfall.length === 0) {
+            const currentYear = new Date().getFullYear();
+            drySpellStartDateInput && (drySpellStartDateInput.value = `${currentYear}-06-01`);
+            drySpellEndDateInput && (drySpellEndDateInput.value = `${currentYear}-09-30`);
+            return;
+        }
+        const years = processedData.annualRainfall.map(item => item.year);
+        const minYear = Math.min(...years);
+        const maxYear = Math.max(...years);
+        drySpellStartDateInput && (drySpellStartDateInput.value = `${minYear}-06-01`);
+        drySpellEndDateInput && (drySpellEndDateInput.value = `${maxYear}-09-30`);
+    }
+
+    function showDrySpellLoading(isLoading) {
+        if (!drySpellLoadingIndicator || !calculateDrySpellButton) return;
+        if (isLoading) {
+            drySpellLoadingIndicator.classList.remove('hidden');
+            calculateDrySpellButton.disabled = true;
+        } else {
+            drySpellLoadingIndicator.classList.add('hidden');
+            calculateDrySpellButton.disabled = allParsedDailyData.length === 0;
+        }
+    }
+
+    async function handleDrySpellCalculation() {
+        if (allParsedDailyData.length === 0) {
+            alert("Please process a data file first.");
+            return;
+        }
+        const minLength = parseInt(drySpellMinLengthInput.value);
+        const maxLength = parseInt(drySpellMaxLengthInput.value);
+        const startDateStr = drySpellStartDateInput.value;
+        const endDateStr = drySpellEndDateInput.value;
+        if (isNaN(minLength) || minLength <= 0) {
+            alert("Please enter a valid minimum dry spell length.");
+            return;
+        }
+        if (isNaN(maxLength) || maxLength <= minLength) {
+            alert("Please enter a valid maximum dry spell length (must be greater than min length).");
+            return;
+        }
+        if (!startDateStr || !endDateStr) {
+            alert("Please select valid start and end dates.");
+            return;
+        }
+        const dStartDate = new Date(startDateStr);
+        const dEndDate = new Date(endDateStr);
+        if (dStartDate >= dEndDate) {
+            alert("Start date must be before end date.");
+            return;
+        }
+        showDrySpellLoading(true);
+        drySpellTable && (drySpellTable.innerHTML = '');
+        drySpellResultsData = [];
+        setTimeout(() => {
+            try {
+                const results = performDrySpellAnalysis(
+                    allParsedDailyData,
+                    minLength,
+                    maxLength,
+                    startDateStr,
+                    endDateStr,
+                    processedData.stationInfo
+                );
+                drySpellResultsData = results;
+                displayDrySpellResults(results, processedData.stationInfo);
+            } catch (error) {
+                console.error("Error calculating dry spells:", error);
+                alert(`Error calculating dry spells: ${error.message}`);
+            } finally {
+                showDrySpellLoading(false);
+            }
+        }, 50);
+    }
+
+    function performDrySpellAnalysis(dailyData, minLength, maxLengthExclusive, startDateStr, endDateStr, currentStationInfo) {
+        const s1Key = currentStationInfo.s1Name;
+        const s2Key = currentStationInfo.s2Name;
+        const startDate = new Date(startDateStr + 'T00:00:00');
+        const endDate = new Date(endDateStr + 'T00:00:00');
+        const filteredData = dailyData.filter(day => {
+            const dayDate = new Date(day.date + 'T00:00:00');
+            return dayDate >= startDate && dayDate <= endDate;
+        });
+        if (filteredData.length === 0) return [];
+        const dataByYear = {};
+        filteredData.forEach(day => {
+            const year = new Date(day.date + 'T00:00:00').getFullYear();
+            if (!dataByYear[year]) dataByYear[year] = [];
+            dataByYear[year].push(day);
+        });
+        const results = [];
+        const years = Object.keys(dataByYear).map(Number).sort((a,b) => a - b);
+        for (const year of years) {
+            const yearData = dataByYear[year].sort((a,b) => new Date(a.date) - new Date(b.date));
+            const s1RainSeries = yearData.map(d => d[s1Key]);
+            const s2RainSeries = yearData.map(d => d[s2Key]);
+            const s1DrySpells = countSpellsForStation(s1RainSeries, minLength, maxLengthExclusive);
+            const s2DrySpells = countSpellsForStation(s2RainSeries, minLength, maxLengthExclusive);
+            results.push({
+                year: year,
+                s1Count: s1DrySpells,
+                s2Count: s2DrySpells,
+                avgCount: (s1DrySpells + s2DrySpells) / 2
+            });
+        }
+        return results;
+    }
+
+    function countSpellsForStation(dailyRainArray, minLength, maxLengthExclusive) {
+        let spellCount = 0;
+        let currentDryStreak = 0;
+        const dryDayThreshold = 0;
+        for (const rain of dailyRainArray) {
+            if (rain <= dryDayThreshold) {
+                currentDryStreak++;
+            } else {
+                if (currentDryStreak >= minLength && currentDryStreak < maxLengthExclusive) {
+                    spellCount++;
+                }
+                currentDryStreak = 0;
+            }
+        }
+        if (currentDryStreak >= minLength && currentDryStreak < maxLengthExclusive) {
+            spellCount++;
+        }
+        return spellCount;
+    }
+
+    function displayDrySpellResults(results, currentStationInfo) {
+        if (!drySpellTable) return;
+        const s1 = currentStationInfo.s1Name;
+        const s2 = currentStationInfo.s2Name;
+        let html = `<thead><tr>
+            <th>Year</th>
+            <th>Dry Spells ${s1} (Count)</th>
+            <th>Dry Spells ${s2} (Count)</th>
+            <th>Avg Dry Spells (Count)</th>
+        </tr></thead><tbody>`;
+        if (results.length === 0) {
+            html += `<tr><td colspan="4" class="text-center">No dry spells found for the selected criteria or no data in range.</td></tr>`;
+        } else {
+            results.forEach(row => {
+                html += `<tr>
+                    <td>${row.year}</td>
+                    <td>${row.s1Count}</td>
+                    <td>${row.s2Count}</td>
+                    <td>${row.avgCount.toFixed(1)}</td>
+                </tr>`;
+            });
+        }
+        drySpellTable.innerHTML = html + '</tbody>';
     }
 
     // --- Export Functions ---
@@ -508,6 +705,10 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'drought':
                 dataToExport = getTableData('droughtTable');
                 filename = "drought_analysis.csv";
+                break;
+            case 'drySpell':
+                dataToExport = getTableData('drySpellTable');
+                filename = "dry_spell_analysis.csv";
                 break;
             default:
                 alert("Unknown tab for export."); return;
@@ -584,6 +785,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const wsDrought = XLSX.utils.aoa_to_sheet(droughtSheetData);
         XLSX.utils.book_append_sheet(wb, wsDrought, "Drought Analysis");
 
+        // Sheet 5: Dry Spell Analysis (if data exists)
+        if (drySpellResultsData && drySpellResultsData.length > 0) {
+            const drySpellHeaders = [
+                "Year", `Dry Spells ${s1Name}`, `Dry Spells ${s2Name}`, "Avg Dry Spells"
+            ];
+            const drySpellSheetData = [drySpellHeaders].concat(
+                drySpellResultsData.map(r => [
+                    r.year, r.s1Count, r.s2Count, r.avgCount
+                ].map(val => typeof val === 'number' ? parseFloat(val.toFixed(1)) : val))
+            );
+            const wsDrySpell = XLSX.utils.aoa_to_sheet(drySpellSheetData);
+            XLSX.utils.book_append_sheet(wb, wsDrySpell, "Dry Spell Analysis");
+        }
         XLSX.writeFile(wb, "rainfall_analysis_report.xlsx");
     });
 
@@ -655,6 +869,17 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         addTableToPdf("Drought Analysis", 'droughtTable', droughtHeaders);
 
+        // Add Dry Spell table to PDF if data exists
+        if (drySpellResultsData && drySpellResultsData.length > 0) {
+            if (startY > 240) {
+                doc.addPage();
+                startY = 20;
+            }
+            const drySpellPdfHeaders = [
+                "Year", `Spells ${s1Name.substring(0,5)}`, `Spells ${s2Name.substring(0,5)}`, "Avg Spells"
+            ];
+            addTableToPdf("Dry Spell Analysis", 'drySpellTable', drySpellPdfHeaders);
+        }
         doc.save('rainfall_analysis_report.pdf');
     });
 

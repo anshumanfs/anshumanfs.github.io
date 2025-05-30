@@ -82,6 +82,7 @@
                         <a href="#" data-tab="monthly" class="tab-link whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Monthly Summary</a>
                         <a href="#" data-tab="rainyDays" class="tab-link whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Rainy Days</a>
                         <a href="#" data-tab="drought" class="tab-link whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Drought Analysis</a>
+                        <a href="#" data-tab="drySpell" class="tab-link whitespace-nowrap py-3 px-3 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Dry Spell Analysis</a>
                     </nav>
                 </div>
             </header>
@@ -109,6 +110,37 @@
                  <p class="text-sm text-gray-500 mb-2">Deviation > -20%: No Drought; -20% to -40%: Mild Drought; <= -40%: Moderate Drought.</p>
                 <div class="overflow-x-auto">
                     <table id="droughtTable" class="min-w-full"></table>
+                </div>
+            </div>
+            <div id="drySpellContent" class="tab-content p-4">
+                <h3 class="text-xl font-semibold text-green-500 mb-3">Dry Spell Analysis</h3>
+                <p class="text-sm text-gray-500 mb-4">Counts occurrences of consecutive dry days (0mm rainfall). Spell length must be >= Min Length and &lt; Max Length.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 p-4 border border-green-200 rounded-md bg-green-50">
+                    <div>
+                        <label for="drySpellMinLength" class="block text-sm font-medium text-gray-700">Min Dry Spell Length (days):</label>
+                        <input type="number" id="drySpellMinLength" value="7" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    </div>
+                    <div>
+                        <label for="drySpellMaxLength" class="block text-sm font-medium text-gray-700">Max Dry Spell Length (days, exclusive):</label>
+                        <input type="number" id="drySpellMaxLength" value="11" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    </div>
+                    <div>
+                        <label for="drySpellStartDate" class="block text-sm font-medium text-gray-700">Start Date (YYYY-MM-DD):</label>
+                        <input type="date" id="drySpellStartDate" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    </div>
+                    <div>
+                        <label for="drySpellEndDate" class="block text-sm font-medium text-gray-700">End Date (YYYY-MM-DD):</label>
+                        <input type="date" id="drySpellEndDate" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    </div>
+                </div>
+                <button id="calculateDrySpellButton" class="mb-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-150 ease-in-out disabled:opacity-50" disabled>
+                    Calculate Dry Spells
+                </button>
+                <div id="drySpellLoadingIndicator" class="hidden text-center my-2">
+                    <p class="text-green-600 animate-pulse">Calculating dry spells...</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table id="drySpellTable" class="min-w-full"></table>
                 </div>
             </div>
         </section>
