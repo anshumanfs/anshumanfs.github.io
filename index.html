@@ -6,331 +6,683 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#6366f1',
+                        'secondary': '#ec4899',
+                        'accent': '#f59e0b',
+                        'success': '#10b981',
+                        'warning': '#f59e0b',
+                        'danger': '#ef4444',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Space Grotesk', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/modern.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="css/main.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
-    <meta name="title" content="Anshuman's Portfolio">
-    <meta name="description" content="I am a FullStack Developer and Deep Learning Engineer. I am a big fan of Python and JavaScript. I have a passion for learning and sharing
-    my knowledge with others as publicly as possible.  I am
-    passionate to develop low code tools and frameworks to help developers build applications
-    faster.">
-    <meta property="og:image" content="https://anshuman61.github.io/images/avatar.jpg">
-    <title>Anshuman's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="title" content="Anshuman Nayak - FullStack Developer & AI Engineer">
+    <meta name="description" content="Innovative FullStack Developer and AI Engineer with expertise in low-code platforms, deep learning, and scalable web applications. Passionate about creating impactful tech solutions.">
+    <meta property="og:image" content="https://anshumanfs.github.io/images/avatar.jpeg">
+    <title>Anshuman Nayak - FullStack Developer & AI Engineer</title>
 </head>
 
-<body style="font-family: Ubuntu;">
-    <header class="bg-light">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header-nav" role="navigation">
-            <div class="container"><a class="link-dark navbar-brand site-title mb-0" href="#">Portfolio</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation"><span
-                        class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto me-2">
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    </ul>
+<body class="font-sans bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-200/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        Anshuman
+                    </h1>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <header>
-        <div class="cover bg-light">
-            <div class="container px-3">
-                <div class="row">
-                    <div class="col-lg-6 p-2"><img class="img-fluid" src="./images/undraw_programming_re_kg9v.svg"
-                            alt="hello" /></div>
-                    <div class="col-lg-6">
-                        <div class="mt-5">
-                            <p class="lead text-uppercase mb-1">Hello!</p>
-                            <h1 class="intro-title marker" data-aos="fade-left" data-aos-delay="50">I'm Anshuman Nayak
-                            </h1>
-                            <p class="lead fw-normal mt-3" data-aos="fade-up" data-aos-delay="100">FullStack Developer
-                                and Deep Learning Engineer</p>
-                            <div class="social-nav" data-aos="fade-up" data-aos-delay="200">
-                                <nav role="navigation">
-                                    <ul class="nav justify-content-left">
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="https://twitter.com/Anshuman12nayak" title="Twitter"><i
-                                                    class="fab fa-twitter"></i><span
-                                                    class="menu-title sr-only">Twitter</span></a></li>
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="https://www.facebook.com/anshuman.fs" title="Facebook"><i
-                                                    class="fab fa-facebook"></i><span
-                                                    class="menu-title sr-only">Facebook</span></a></li>
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="https://www.instagram.com/anshuman.fs" title="Instagram"><i
-                                                    class="fab fa-instagram"></i><span
-                                                    class="menu-title sr-only">Instagram</span></a></li>
-                                        <li class="nav-item"><a class="nav-link"
-                                                href="https://www.linkedin.com/anshuman-nayak-b07363123"
-                                                title="LinkedIn"><i class="fab fa-linkedin"></i><span
-                                                    class="menu-title sr-only">LinkedIn</span></a></li>
-                                        <li class="nav-item"><a class="nav-link" href="https://github.com/anshumanfs"
-                                                title="Github"><i class="fab fa-github"></i><span
-                                                    class="menu-title sr-only">GitHub</span></a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <div class="mt-3" data-aos="fade-up" data-aos-delay="200">
-                                <a class="btn btn-warning shadow-sm mt-1 hover-effect rounded-pill" href="#contact">
-                                    GetIn Touch
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
-                                <a class="btn btn-warning shadow-sm mt-1 hover-effect rounded-pill"
-                                    href="./documents/Anshuman-Nayak-Resume.pdf" target="_blank">
-                                    Get Resume
-                                    <i class="fas fa-cloud-arrow-down"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">About</a>
+                    <a href="#skills" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Skills</a>
+                    <a href="#experience" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Experience</a>
+                    <a href="#projects" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Projects</a>
+                    <a href="#contact" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Contact</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary transition-colors duration-200">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="wave-bg">
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200/50">
+            <div class="px-4 py-2 space-y-2">
+                <a href="#about" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">About</a>
+                <a href="#skills" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Skills</a>
+                <a href="#experience" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Experience</a>
+                <a href="#projects" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Projects</a>
+                <a href="#contact" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-        </div>
-    </header>
-    <div class="section pt-4 px-3 px-lg-4" id="about">
-        <div class="container-narrow">
-            <div class="row">
-                <div class="col-md-5 offset-md-1 aos-init aos-animate" data-aos="fade-right" data-aos-delay="100">
-                    <img class="avatar img-fluid mt-2 rounded-3" src="images/avatar.jpg" width="350" height="350"
-                        alt="Anshuman Nayak">
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden w-full">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5"></div>
+        <div class="max-w-7xl mx-auto relative w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+                <div class="space-y-8 w-full" data-aos="fade-right">
+                    <div class="space-y-4 w-full">
+                        <p class="text-primary font-semibold text-lg tracking-wide uppercase">Hello, I'm</p>
+                        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-gray-900 w-full break-words">
+                            Anshuman
+                            <span class="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                                Nayak
+                            </span>
+                        </h1>
+                        <p class="text-lg sm:text-xl lg:text-2xl text-gray-600 font-medium w-full">
+                            FullStack Developer & AI Engineer
+                        </p>
+                        <p class="text-base sm:text-lg text-gray-600 max-w-xl leading-relaxed text-justify sm:text-left w-full">
+                            Innovative professional driving tech solutions with expertise in low-code platforms, 
+                            deep learning, and scalable applications. Passionate about creating impactful innovations.
+                        </p>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="flex flex-wrap gap-3 w-full">
+                        <a href="https://github.com/anshumanfs" target="_blank" class="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors duration-200">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/anshuman-nayak-b07363123" target="_blank" class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                        <a href="https://twitter.com/Anshuman12nayak" target="_blank" class="w-12 h-12 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="mailto:anshuman.n@yahoo.com" class="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors duration-200">
+                            <i class="fas fa-envelope text-lg"></i>
+                        </a>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 w-full">
+                        <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200 text-center w-full sm:w-auto">
+                            Get In Touch
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="./documents/Anshuman-Nayak-Resume.pdf" target="_blank" class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 border-2 border-primary text-primary font-semibold rounded-full hover:bg-primary hover:text-white transition-all duration-200 text-center w-full sm:w-auto">
+                            Download Resume
+                            <i class="fas fa-download ml-2"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <h2 class="h4 my-2">Hello! I'm Anshuman.</h2>
-                    <p class="justify-content-evenly">
-                        II'm an innovative professional with a proven record of driving tech solutions. Led low-code
-                        platform dev, cutting time by 86% and supporting 2000+ scientists. Created hybrid social app for
-                        8000+ users, AI plant disease app, and patented smartphone tech. Recognized with Silver Elite
-                        Award, GATE Rank 67, Scholar accolade. Committed to impactful innovation.
-                    </p>
-                    <div class="row mt-3">
-                        <div class="col-sm-2">
-                            <div class="pb-1">Age:</div>
+                
+                <div class="relative w-full" data-aos="fade-left">
+                    <div class="relative z-10 w-full">
+                        <img src="./images/undraw_programming_re_kg9v.svg" alt="Programming Illustration" class="w-full h-auto max-w-lg mx-auto">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl blur-3xl transform rotate-6"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative" data-aos="fade-right">
+                    <div class="relative z-10">
+                        <img class="w-80 h-80 rounded-3xl object-cover shadow-2xl mx-auto lg:mx-0" src="images/avatar.jpeg" alt="Anshuman Nayak">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-3xl blur-3xl transform -rotate-6 scale-110"></div>
+                </div>
+                
+                <div class="space-y-8" data-aos="fade-left">
+                    <div class="space-y-4">
+                        <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-900">
+                            About <span class="text-primary">Me</span>
+                        </h2>
+                        <p class="text-xl text-gray-600 leading-relaxed text-justify sm:text-left">
+                            I'm an innovative professional with a proven record of driving tech solutions. 
+                            Led low-code platform development, cutting development time by 86% and supporting 2000+ scientists. 
+                            Created hybrid social app for 8000+ users, AI plant disease detection app, and patented smartphone technology.
+                        </p>
+                        <p class="text-lg text-gray-600 leading-relaxed text-justify sm:text-left">
+                            Recognized with Silver Elite Award, GATE Rank 67, and Scholar accolades. 
+                            Committed to impactful innovation and passionate about building tools that make developers' lives easier.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+                                    <i class="fas fa-birthday-cake text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-medium">Age</p>
+                                    <p class="text-lg font-semibold text-gray-900">26</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-r from-success to-primary rounded-full flex items-center justify-center">
+                                    <i class="fas fa-envelope text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-medium">Email</p>
+                                    <p class="text-lg font-semibold text-gray-900">anshuman.n@yahoo.com</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-10">
-                            <div class="pb-1 fw-bolder">25</div>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-r from-accent to-secondary rounded-full flex items-center justify-center">
+                                    <i class="fas fa-phone text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-medium">Phone</p>
+                                    <p class="text-lg font-semibold text-gray-900">+91 933-792-8411</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-r from-secondary to-primary rounded-full flex items-center justify-center">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-medium">Location</p>
+                                    <p class="text-lg font-semibold text-gray-900">Bhubaneswar, India</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="pb-1">Email:</div>
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="pb-1 fw-bolder">anshuman.n@yahoo.com</div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="pb-1">Phone:</div>
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="pb-1 fw-bolder">+91 933-792-8411</div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="pb-1">Address:</div>
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="pb-1 fw-bolder">Bhubaneswar, India</div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="pb-1">Staus:</div>
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="pb-1 fw-bolder">Available</div>
-                        </div>
+                    </div>
+                    
+                    <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-success/10 to-primary/10 border border-success/20 rounded-full">
+                        <div class="w-3 h-3 bg-success rounded-full animate-pulse mr-3"></div>
+                        <span class="text-success font-semibold">Available for opportunities</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="section px-3 px-lg-4 pt-5" id="skills">
-        <div class="container-narrow">
-            <div class="text-center mb-5">
-                <h2>My Skills</h2>
-            </div>
-            <div class="text-center">
-                <p class="mx-auto mb-3" style="max-width:600px">
-                    I am a quick learner and specialized in multiple skills required for Fullstack development and Deep
-                    Learning.
+    </section>
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4">
+                    My <span class="text-primary">Skills</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed text-justify sm:text-center">
+                    I am a quick learner specialized in multiple technologies required for modern 
+                    FullStack development, AI/ML, and cloud infrastructure.
                 </p>
             </div>
-            <div class="bg-light p-3" id="skills-container">
+            
+            <div class="space-y-12">
+                <!-- Frontend Skills -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                        <div class="w-3 h-3 bg-primary rounded-full mr-3"></div>
+                        Frontend Development
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 w-full" id="frontend-skills">
+                        <!-- Skills will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Backend Skills -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                        <div class="w-3 h-3 bg-secondary rounded-full mr-3"></div>
+                        Backend & Database
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 w-full" id="backend-skills">
+                        <!-- Skills will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- AI/ML Skills -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                        <div class="w-3 h-3 bg-accent rounded-full mr-3"></div>
+                        AI/ML & Data Science
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 w-full" id="ai-skills">
+                        <!-- Skills will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- DevOps Skills -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                        <div class="w-3 h-3 bg-success rounded-full mr-3"></div>
+                        DevOps & Cloud
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 w-full" id="devops-skills">
+                        <!-- Skills will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4">
+                    Work <span class="text-primary">Experience</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed text-justify sm:text-center">
+                    Building innovative solutions and leading development teams across various industries.
+                </p>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Carelon Experience -->
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-3xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center">
+                                    <img src="./images/experiences/carelon.jpg" alt="Carelon" class="w-12 h-12 rounded-xl object-cover">
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-900">Software Engineer</h3>
+                                    <p class="text-lg text-gray-600 font-medium">Carelon Global Solutions LLP</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-4 lg:mt-0">
+                                <div class="bg-primary/10 text-primary px-4 py-2 rounded-full font-semibold">
+                                    2022 - Present
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed text-lg text-justify sm:text-left">
+                            Lead development of low-code platform for API integration, reducing development time by 86%. 
+                            The platform supports multiple data sources with minimal effort and is optimized for faster 
+                            concurrent API responses. Currently supporting 2000+ data scientists and consumer-facing 
+                            applications across the organization.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-6">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Low-Code Platform</span>
+                            <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-sm font-medium">API Development</span>
+                            <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Data Integration</span>
+                            <span class="bg-success/10 text-success px-3 py-1 rounded-full text-sm font-medium">Performance Optimization</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- UpStage Experience -->
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-gradient-to-r from-secondary/5 to-accent/5 rounded-3xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center">
+                                    <img src="./images/experiences/upstage.png" alt="UpStage" class="w-12 h-12 rounded-xl object-cover">
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-900">FullStack Developer</h3>
+                                    <p class="text-lg text-gray-600 font-medium">UpStage India</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-4 lg:mt-0">
+                                <div class="bg-secondary/10 text-secondary px-4 py-2 rounded-full font-semibold">
+                                    2019 - 2022 (Part-time)
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed text-lg mb-4 text-justify sm:text-left">
+                            Designed and built an Android social media app with optimized image and video performance 
+                            for 8000+ users. Developed backend server using Node.js with serverless cloud functions 
+                            for video quality conversion.
+                        </p>
+                        <p class="text-gray-700 leading-relaxed text-lg text-justify sm:text-left">
+                            Successfully managed and scaled NoSQL database while demonstrating leadership by supervising 
+                            a team of 5 interns and 2 full-time developers.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-6">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Android Development</span>
+                            <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-sm font-medium">Node.js</span>
+                            <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Cloud Functions</span>
+                            <span class="bg-success/10 text-success px-3 py-1 rounded-full text-sm font-medium">Team Leadership</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4">
+                    Featured <span class="text-primary">Projects</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed text-justify sm:text-center">
+                    Showcasing innovative solutions and tools that make a real impact.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Agricultural Tools -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-gradient-to-r from-success to-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-seedling text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Agricultural Tools Suite</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-justify sm:text-left">
+                        Comprehensive suite including rainfall analysis, soil water management, and farm machinery calculators 
+                        to help farmers make data-driven decisions.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-success/10 text-success px-3 py-1 rounded-full text-sm font-medium">JavaScript</span>
+                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Data Analysis</span>
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Agriculture</span>
+                    </div>
+                    <a href="./tools/farm-machinery/custom-hiring-calculator/machine-cost-calculator.html" target="_blank" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors duration-200">
+                        View Project <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- AI Plant Disease Detection -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-gradient-to-r from-secondary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-leaf text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">AI Plant Disease Detection</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-justify sm:text-left">
+                        Machine learning-powered mobile app for early detection of plant diseases using computer vision 
+                        and deep learning algorithms.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-sm font-medium">TensorFlow</span>
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Computer Vision</span>
+                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Mobile App</span>
+                    </div>
+                    <span class="inline-flex items-center text-gray-500 font-semibold">
+                        Patent Pending <i class="fas fa-certificate ml-2"></i>
+                    </span>
+                </div>
+                
+                <!-- Soil Barcoding -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-gradient-to-r from-accent to-success rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-qrcode text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Soil Barcoding System</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-justify sm:text-left">
+                        Innovative system for soil identification and analysis using barcode technology 
+                        for agricultural and environmental applications.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">JavaScript</span>
+                        <span class="bg-success/10 text-success px-3 py-1 rounded-full text-sm font-medium">Data Processing</span>
+                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Research</span>
+                    </div>
+                    <a href="./tools/soilBarcoding.html" target="_blank" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors duration-200">
+                        View Project <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="section px-3 px-lg-4 pt-5" id="experience">
-        <div class="container-narrow">
-            <div class="text-center mb-5">
-                <h2 class="marker marker-center">Experiences</h2>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4">
+                    Get In <span class="text-primary">Touch</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed text-justify sm:text-center">
+                    Ready to work together? Let's create something amazing. I'm always open to discussing new opportunities.
+                </p>
             </div>
-            <div class="row mx-auto">
-                <div class="col-md-6">
-                    <div class="card shadow-sm mb-3 aos-init aos-animate" data-aos="fade-right" data-aos-delay="100">
-                        <div class="card-header px-3 py-2">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h3 class="h5 mb-1">Software Engineer</h3>
-                                    <div class="text-muted text-small">Carelon Global Solutions
-                                        LLP <small>(2022-Present)</small></div>
-                                </div><img src="./images/experiences/carelon.jpg" width="48" height="48" class="rounded"
-                                    alt="ui-ux">
-                            </div>
-                        </div>
-                        <div class="card-body px-3 py-2">
-                            <p class="justify-content-evenly">
-                                Lead development of low code platform for API.
-                                Application can onboard any multiple data sources with minimal effort. Developed to
-                                support different types of queries and optimized to utilize
-                                resources efficiently for faster concurrent API responses with minimal
-                                cost to the business. Data scientists and consumer-facing applications across the
-                                organization currently use the application.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow-sm mb-3 aos-init aos-animate" data-aos="fade-left" data-aos-delay="300">
-                        <div class="card-header px-3 py-2">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h3 class="h5 mb-1">FullStack Developer</h3>
-                                    <div class="text-muted text-small">UpStage India <small>(2019-2022 Part time)
-                                        </small></div>
-                                </div><img src="./images/experiences/upstage.png" class="rounded" width="48" height="48"
-                                    alt="app development">
-                            </div>
-                        </div>
-                        <div class="card-body px-3 py-2">
-                            <p>
-                                Designed and built an Android social media app, optimizing image and video performance
-                                for a smooth user experience and seamless streaming. Developed a backend server using
-                                Node.js, incorporating server-less cloud functions to convert user-uploaded videos into
-                                various qualities. Successfully managed and scaled the NoSQL database. Demonstrated
-                                leadership skills by supervising a team of 5 interns and 2 full-time developers,
-                                ensuring the project's alignment with business requirements.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="section px-2 px-lg-4 pb-4 pt-5 mb-5" id="contact">
-        <div class="container-narrow">
-            <div class="text-center mb-5">
-                <h2 class="marker marker-center">Contact Me</h2>
-            </div>
-            <div class="row">
-                <div class="col-md-6 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="bg-light my-2 p-3 pt-2 rounded-3">
-                        <form action="https://formspree.io/f/xeqbazbp" method="POST">
-                            <div class="form-group my-2">
-                                <label for="name" class="form-label fw-bolder">
-                                    Name <sup class="text-danger">*</sup>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <!-- Contact Form -->
+                <div class="space-y-8" data-aos="fade-right">
+                    <div class="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl p-8 border border-gray-100">
+                        <form action="https://formspree.io/f/xeqbazbp" method="POST" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-semibold text-gray-900 mb-2">
+                                    Full Name <span class="text-red-500">*</span>
                                 </label>
-                                <input class="form-control" type="text" id="name" name="name" required="true">
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    required 
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white"
+                                    placeholder="Enter your full name"
+                                >
                             </div>
-                            <div class="form-group my-2">
-                                <label for="email" class="form-label fw-bolder">Email<sup
-                                        class="text-danger">*</sup></label>
-                                <input class="form-control" type="email" id="email" name="_replyto" required="true">
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-semibold text-gray-900 mb-2">
+                                    Email Address <span class="text-red-500">*</span>
+                                </label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="_replyto" 
+                                    required 
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white"
+                                    placeholder="Enter your email address"
+                                >
                             </div>
-                            <div class="form-group my-2">
-                                <label for="message" class="form-label fw-bolder">Message<sup
-                                        class="text-danger">*</sup></label>
-                                <textarea class="form-control" style="resize: none;" id="message" name="message"
-                                    rows="4" required="true"></textarea>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-semibold text-gray-900 mb-2">
+                                    Message <span class="text-red-500">*</span>
+                                </label>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    rows="4" 
+                                    required 
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white resize-none"
+                                    placeholder="Tell me about your project or just say hello!"
+                                ></textarea>
                             </div>
-                            <button class="btn btn-warning mt-2 rounded-pill" type="submit">
-                                Send <i class="fa fa-arrow-right"></i>
+                            
+                            <button 
+                                type="submit" 
+                                class="w-full bg-gradient-to-r from-primary to-secondary text-white font-semibold py-4 px-8 rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200 flex items-center justify-center space-x-2"
+                            >
+                                <span>Send Message</span>
+                                <i class="fas fa-paper-plane"></i>
                             </button>
                         </form>
                     </div>
                 </div>
-                <div class="col-md-6 aos-init aos-animate" data-aos="fade-left" data-aos-delay="300">
-                    <div class="mt-3 px-1">
-                        <div class="h5">Let's talk how I can help you!</div>
-                        <p>If you like my skills and want to avail my services then drop me a message using the contact
-                            form. </p>
-                        <p>Or get in touch using my email, skype or my contact number.</p>
-                        <p>See you!</p>
+                
+                <!-- Contact Information -->
+                <div class="space-y-8" data-aos="fade-left">
+                    <div class="space-y-6">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6">Let's talk how I can help you!</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed text-justify sm:text-left">
+                            If you like my skills and want to avail my services, drop me a message using the contact form. 
+                            Or get in touch using my email or contact number.
+                        </p>
+                        <p class="text-lg text-gray-600 text-justify sm:text-left">
+                            Looking forward to hearing from you! 🚀
+                        </p>
                     </div>
-                    <div class="mt-53 px-1">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <div class="pb-1">Email:</div>
+                    
+                    <div class="space-y-6">
+                        <!-- Email -->
+                        <div class="flex items-center space-x-4 p-4 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl border border-gray-100">
+                            <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                                <i class="fas fa-envelope text-white"></i>
                             </div>
-                            <div class="col-sm-10">
-                                <div class="pb-1 fw-bolder">anshuman.n@yahoo.com</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Email</p>
+                                <a href="mailto:anshuman.n@yahoo.com" class="text-lg font-bold text-gray-900 hover:text-primary transition-colors duration-200">
+                                    anshuman.n@yahoo.com
+                                </a>
                             </div>
-                            <div class="col-sm-2">
-                                <div class="pb-1">Phone:</div>
+                        </div>
+                        
+                        <!-- Phone -->
+                        <div class="flex items-center space-x-4 p-4 bg-gradient-to-r from-secondary/5 to-accent/5 rounded-2xl border border-gray-100">
+                            <div class="w-12 h-12 bg-gradient-to-r from-secondary to-accent rounded-xl flex items-center justify-center">
+                                <i class="fas fa-phone text-white"></i>
                             </div>
-                            <div class="col-sm-10">
-                                <div class="pb-1 fw-bolder">+91 933-792-8411</div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Phone</p>
+                                <a href="tel:+919337928411" class="text-lg font-bold text-gray-900 hover:text-secondary transition-colors duration-200">
+                                    +91 933-792-8411
+                                </a>
                             </div>
+                        </div>
+                        
+                        <!-- Location -->
+                        <div class="flex items-center space-x-4 p-4 bg-gradient-to-r from-accent/5 to-success/5 rounded-2xl border border-gray-100">
+                            <div class="w-12 h-12 bg-gradient-to-r from-accent to-success rounded-xl flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Location</p>
+                                <p class="text-lg font-bold text-gray-900">Bhubaneswar, India</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="pt-6">
+                        <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Follow Me</p>
+                        <div class="flex flex-wrap gap-3 justify-center sm:justify-start">
+                            <a href="https://github.com/anshumanfs" target="_blank" class="w-12 h-12 bg-gray-900 text-white rounded-xl flex items-center justify-center hover:bg-gray-700 transition-colors duration-200">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/anshuman-nayak-b07363123" target="_blank" class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors duration-200">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://twitter.com/Anshuman12nayak" target="_blank" class="w-12 h-12 bg-blue-400 text-white rounded-xl flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://www.instagram.com/anshuman.nayak.official" target="_blank" class="w-12 h-12 bg-pink-500 text-white rounded-xl flex items-center justify-center hover:bg-pink-600 transition-colors duration-200">
+                                <i class="fab fa-instagram"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <footer class="pt-4 pb-4 text-center bg-light">
-        <div class="container">
-            <div class="my-3">
-                <div class="h4">Anshuman Nayak</div>
-                <p>FullStack Developer &amp; Deep Learning Engineer</p>
-                <div class="social-nav">
-                    <nav role="navigation">
-                        <ul class="nav justify-content-center">
-                            <li class="nav-item"><a class="nav-link" href="https://twitter.com/Anshuman12nayak"
-                                    title="Twitter"><i class="fab fa-twitter"></i><span
-                                        class="menu-title sr-only">Twitter</span></a></li>
-                            <li class="nav-item"><a class="nav-link"
-                                    href="https://www.facebook.com/anshuman.nayak.official" title="Facebook"><i
-                                        class="fab fa-facebook"></i><span class="menu-title sr-only">Facebook</span></a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link"
-                                    href="https://www.instagram.com/anshuman.nayak.official" title="Instagram"><i
-                                        class="fab fa-instagram"></i><span
-                                        class="menu-title sr-only">Instagram</span></a></li>
-                            <li class="nav-item"><a class="nav-link"
-                                    href="https://www.linkedin.com/anshuman-nayak-b07363123" title="LinkedIn"><i
-                                        class="fab fa-linkedin"></i><span class="menu-title sr-only">LinkedIn</span></a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="https://github.com/anshuman61"
-                                    title="Github"><i class="fab fa-github"></i><span
-                                        class="menu-title sr-only">GitHub</span></a></li>
-                        </ul>
-                    </nav>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center space-y-6">
+                <div class="space-y-2">
+                    <h3 class="text-3xl font-display font-bold">Anshuman Nayak</h3>
+                    <p class="text-gray-400 text-lg">FullStack Developer & AI Engineer</p>
                 </div>
-            </div>
-            <div class="text-small text-secondary">
-                <div class="mb-1">© Anshuman Nayak. All rights reserved.</div>
-                <div>
-                    Designed By - <a href="" target="_blank">Anshuman Nayak</a></div>
+                
+                <div class="flex justify-center flex-wrap gap-4">
+                    <a href="https://twitter.com/Anshuman12nayak" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-blue-400 rounded-xl flex items-center justify-center transition-colors duration-200">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/anshuman.nayak.official" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-colors duration-200">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/anshuman.nayak.official" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-pink-500 rounded-xl flex items-center justify-center transition-colors duration-200">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/anshuman-nayak-b07363123" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-blue-700 rounded-xl flex items-center justify-center transition-colors duration-200">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://github.com/anshumanfs" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-gray-600 rounded-xl flex items-center justify-center transition-colors duration-200">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+                
+                <div class="border-t border-gray-800 pt-6 space-y-2">
+                    <p class="text-gray-400 text-sm">© 2025 Anshuman Nayak. All rights reserved.</p>
+                    <p class="text-gray-500 text-sm">
+                        Designed & Developed with ❤️ by <span class="text-primary font-semibold">Anshuman Nayak</span>
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="./js/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init();
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/90');
+                nav.classList.remove('bg-white/80');
+            } else {
+                nav.classList.add('bg-white/80');
+                nav.classList.remove('bg-white/90');
+            }
+        });
     </script>
 </body>
 
