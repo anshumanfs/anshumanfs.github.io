@@ -13,17 +13,22 @@ const skills = {
         { skill: 'Express', icon: '../images/skills/icons8-express-js.svg' },
         { skill: 'Nest.js', icon: '../images/skills/icons8-nestjs.svg' },
         { skill: 'Python', icon: '../images/skills/icons8-python.svg' },
+        { skill: 'Rust', icon: '../images/skills/icons8-rust-96.png' },
+        { skill: 'Django', icon: '../images/skills/icons8-django-96.png' },
         { skill: 'Flask', icon: '../images/skills/icons8-flask.svg' },
-        { skill: 'PHP', icon: '../images/skills/icons8-php-logo.svg' },
-        { skill: 'C Programming', icon: '../images/skills/icons8-c.svg' },
         { skill: 'GraphQL', icon: '../images/skills/icons8-graphql.svg' },
         { skill: 'REST API', icon: '../images/skills/icons8-api-96.png' },
+        { skill: 'PostgreSQL', icon: '../images/skills/icons8-postgresql-96.png' },
         { skill: 'MongoDB', icon: '../images/skills/icons8-mongodb.svg' },
         { skill: 'MySQL', icon: '../images/skills/icons8-mysql.svg' },
-        { skill: 'Firebase', icon: '../images/skills/icons8-firebase.svg' }
+        { skill: 'Firebase', icon: '../images/skills/icons8-firebase.svg' },
+        { skill: 'Snowflake', icon: '../images/skills/icons8-snowflake-96.png' }
     ],
     ai: [
+        { skill: 'GPT', icon: '../images/skills/icons8-chatgpt-96.png' },
+        { skill: 'Claude', icon: '../images/skills/icons8-claude-96.png' },
         { skill: 'TensorFlow', icon: '../images/skills/icons8-tensorflow.svg' },
+        { skill: 'LangChain', icon: '../images/skills/icons8-lang-graph.png' },
         { skill: 'Pandas', icon: '../images/skills/icons8-pandas.svg' },
         { skill: 'NumPy', icon: '../images/skills/icons8-numpy.svg' },
         { skill: 'OpenCV', icon: '../images/skills/icons8-opencv.svg' },
@@ -32,6 +37,7 @@ const skills = {
     devops: [
         { skill: 'Docker', icon: '../images/skills/icons8-docker.svg' },
         { skill: 'AWS', icon: '../images/skills/icons8-amazon-web-services.svg' },
+        { skill: 'Nginx', icon: '../images/skills/icons8-nginx-96.png' },
         { skill: 'Git', icon: '../images/skills/icons8-git.svg' },
         { skill: 'Terraform', icon: '../images/skills/icons8-terraform.svg' },
         { skill: 'Jira', icon: '../images/skills/icons8-jira.svg' }
