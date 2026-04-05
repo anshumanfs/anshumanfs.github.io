@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      var needsProtocolUpgrade = window.location.protocol === 'http:';
+      var needsHostRedirect = window.location.hostname === 'anshumanfs.github.io';
+      var isLocalPreview = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (!isLocalPreview && (needsProtocolUpgrade || needsHostRedirect)) {
+        var target = 'https://anshumann.com' + window.location.pathname + window.location.search + window.location.hash;
+        window.location.replace(target);
+      }
+    })();
+  </script>
+  <meta name="description" content="Search research papers by title or DOI and fetch live citation counts from OpenAlex.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://anshumann.com/tools/research/citation-lookup.html">
+  <meta property="og:title" content="Citation Lookup Tool">
+  <meta property="og:description" content="Search papers by title or DOI and view live citation counts.">
+  <meta property="og:image" content="https://anshumann.com/images/avatar.jpeg">
+  <meta property="og:url" content="https://anshumann.com/tools/research/citation-lookup.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Anshuman Nayak Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Citation Lookup Tool">
+  <meta name="twitter:description" content="Search papers by title or DOI and view live citation counts.">
+  <meta name="twitter:image" content="https://anshumann.com/images/avatar.jpeg">
+  <title>Citation Lookup Tool - Anshuman Nayak</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Citation Lookup Tool",
+    "url": "https://anshumann.com/tools/research/citation-lookup.html",
+    "description": "Search research papers by title or DOI and fetch live citation counts from OpenAlex."
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="../../css/dark-theme.css" />
+</head>
+<body class="theme-dark min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <div class="flex items-center justify-between gap-4 mb-10">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-primary mb-2">Research Tool</p>
+        <h1 class="text-3xl md:text-5xl font-display font-bold">Citation Lookup</h1>
+        <p class="text-slate-400 mt-3 max-w-2xl">Search by paper title or DOI and fetch live citation data from OpenAlex.</p>
+      </div>
+      <a href="../index.html" class="px-4 py-2 rounded-full border border-slate-700 text-slate-200 hover:border-primary hover:text-primary transition">Back to Tools</a>
+    </div>
+
+    <section class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 mb-8">
+      <div class="rounded-3xl border border-slate-800 bg-slate-950/80 p-6 shadow-2xl">
+        <form id="citation-form" class="space-y-4">
+          <div>
+            <label for="query" class="block text-sm font-semibold text-slate-300 mb-2">Paper title or DOI</label>
+            <input id="query" name="query" type="text" placeholder="e.g. 10.1038/s41598-025-24236-9 or soil organic carbon estimation" class="w-full rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/60" />
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button type="submit" class="inline-flex items-center justify-center px-5 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold hover:shadow-lg transition-all duration-200">
+              Search Citations
+              <i class="fas fa-magnifying-glass ml-2"></i>
+            </button>
+            <button type="button" id="sample-search" class="inline-flex items-center justify-center px-5 py-3 rounded-full border border-slate-700 text-slate-200 hover:border-primary hover:text-primary transition-all duration-200">
+              Load Sample Query
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+          <button type="button" class="sample-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 text-sm" data-query="10.1038/s41598-025-24236-9">Scientific Reports paper</button>
+          <button type="button" class="sample-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 text-sm" data-query="digital soil mapping available phosphorus smartphone RGB imaging">Soil mapping</button>
+          <button type="button" class="sample-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 text-sm" data-query="rice disease nutrient deficiency detection smartphone image processing">Rice disease detection</button>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-slate-800 bg-slate-950/80 p-6 shadow-2xl">
+        <h2 class="text-xl font-bold mb-3">How it works</h2>
+        <ul class="space-y-3 text-slate-400 leading-relaxed">
+          <li>• DOI input fetches a single paper directly from OpenAlex.</li>
+          <li>• Title search returns the closest matching works with citation counts.</li>
+          <li>• Results include DOI links, venue, year, and citation totals.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold">Results</h2>
+        <span id="status" class="text-sm text-slate-400">Ready to search</span>
+      </div>
+      <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('citation-form');
+    const queryInput = document.getElementById('query');
+    const results = document.getElementById('results');
+    const status = document.getElementById('status');
+    const sampleSearch = document.getElementById('sample-search');
+
+    function escapeHtml(value) {
+      return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function renderResults(items) {
+      if (!items.length) {
+        results.innerHTML = '<div class="md:col-span-2 rounded-3xl border border-slate-800 bg-slate-950/60 p-8 text-slate-400">No results found.</div>';
+        return;
+      }
+
+      results.innerHTML = items.map((paper) => {
+        const title = escapeHtml(paper.title || 'Untitled');
+        const venue = escapeHtml(paper.host_venue?.display_name || paper.primary_location?.source?.display_name || 'Unknown venue');
+        const year = paper.publication_year || 'n.d.';
+        const doi = paper.doi ? paper.doi.replace('https://doi.org/', '') : '';
+        const authors = (paper.authorships || []).slice(0, 3).map((entry) => escapeHtml(entry.author?.display_name || '')).filter(Boolean).join(', ');
+        const authorSuffix = (paper.authorships || []).length > 3 ? ' et al.' : '';
+        const citations = paper.cited_by_count ?? 0;
+        const openAlexUrl = paper.id || '#';
+        const doiUrl = paper.doi ? paper.doi.replace(/^https?:\/\/doi\.org\//, 'https://doi.org/') : '';
+
+        return `
+          <article class="rounded-3xl border border-slate-800 bg-slate-950/80 p-6 shadow-xl">
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <p class="text-sm uppercase tracking-[0.22em] text-primary mb-2">${venue} · ${year}</p>
+                <h3 class="text-xl font-bold text-slate-100 leading-snug">${title}</h3>
+              </div>
+              <div class="text-right">
+                <div class="text-2xl font-bold text-primary">${citations}</div>
+                <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Citations</div>
+              </div>
+            </div>
+            <p class="text-slate-400 text-sm mb-4">${authors}${authorSuffix}</p>
+            <div class="flex flex-wrap gap-3">
+              ${doiUrl ? `<a href="${doiUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold hover:bg-primary/20 transition">DOI</a>` : ''}
+              <a href="${openAlexUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 rounded-full bg-slate-800 text-slate-200 font-semibold hover:bg-slate-700 transition">OpenAlex</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    async function searchCitations(query) {
+      const trimmed = query.trim();
+      if (!trimmed) {
+        status.textContent = 'Enter a title or DOI';
+        results.innerHTML = '';
+        return;
+      }
+
+      status.textContent = 'Searching...';
+      results.innerHTML = '';
+
+      try {
+        const isDoi = /^10\.\d{4,9}\/[-._;()/:A-Z0-9]+$/i.test(trimmed) || trimmed.includes('doi.org/');
+        const endpoint = isDoi
+          ? `https://api.openalex.org/works/https://doi.org/${encodeURIComponent(trimmed.replace(/^https?:\/\/doi\.org\//i, ''))}`
+          : `https://api.openalex.org/works?search=${encodeURIComponent(trimmed)}&per-page=8`;
+
+        const response = await fetch(endpoint);
+        if (!response.ok) {
+          throw new Error('Search failed');
+        }
+
+        const payload = await response.json();
+        const items = isDoi ? [payload] : (payload.results || []);
+        status.textContent = `${items.length} result${items.length === 1 ? '' : 's'} found`;
+        renderResults(items);
+      } catch (error) {
+        status.textContent = 'Search unavailable';
+        results.innerHTML = '<div class="md:col-span-2 rounded-3xl border border-slate-800 bg-slate-950/60 p-8 text-slate-400">OpenAlex lookup failed. Try a different query or DOI.</div>';
+      }
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      searchCitations(queryInput.value);
+    });
+
+    sampleSearch.addEventListener('click', () => {
+      queryInput.value = '10.1038/s41598-025-24236-9';
+      searchCitations(queryInput.value);
+    });
+
+    document.querySelectorAll('.sample-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        queryInput.value = chip.getAttribute('data-query') || '';
+        searchCitations(queryInput.value);
+      });
+    });
+  </script>
+</body>
+</html>
