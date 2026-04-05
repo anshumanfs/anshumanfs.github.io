@@ -5,6 +5,17 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        (function () {
+            var needsProtocolUpgrade = window.location.protocol === 'http:';
+            var needsHostRedirect = window.location.hostname === 'anshumanfs.github.io';
+            var isLocalPreview = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            if (!isLocalPreview && (needsProtocolUpgrade || needsHostRedirect)) {
+                var target = 'https://anshumann.com' + window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(target);
+            }
+        })();
+    </script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -83,6 +94,8 @@
                     "sameAs": [
                         "https://github.com/anshumanfs",
                         "https://www.linkedin.com/in/anshuman-nayak-b07363123",
+                        "https://scholar.google.com/citations?user=7Y64hhkAAAAJ&hl=en",
+                        "https://orcid.org/0000-0003-3147-1828",
                         "https://twitter.com/Anshuman12nayak",
                         "https://www.instagram.com/anshuman.nayak.official"
                     ]
@@ -116,6 +129,7 @@
                     <a href="#about" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">About</a>
                     <a href="#skills" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Skills</a>
                     <a href="#experience" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Experience</a>
+                    <a href="./tools/index.html" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Tools</a>
                     <a href="#projects" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Projects</a>
                     <a href="#contact" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Contact</a>
                 </div>
@@ -132,6 +146,7 @@
                 <a href="#about" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">About</a>
                 <a href="#skills" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Skills</a>
                 <a href="#experience" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Experience</a>
+                <a href="./tools/index.html" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Tools</a>
                 <a href="#projects" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Projects</a>
                 <a href="#contact" class="block py-2 text-gray-700 hover:text-primary transition-colors duration-200">Contact</a>
             </div>
@@ -503,66 +518,88 @@
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed text-justify sm:text-center">
                     Showcasing innovative solutions and tools that make a real impact.
                 </p>
+                <div class="mt-6">
+                    <a href="./tools/index.html" class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-success to-primary text-white font-semibold rounded-full hover:shadow-lg transition-all duration-200">
+                        Explore All Tools
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Agricultural Tools -->
+                <!-- Zanmi Plante Haiti / SolumSense -->
                 <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 bg-gradient-to-r from-success to-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-seedling text-white text-2xl"></i>
+                    <div class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-map-marked-alt text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Agricultural Tools Suite</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Zanmi Plante Haiti (SolumSense)</h3>
                     <p class="text-gray-600 leading-relaxed mb-6 text-justify sm:text-left">
-                        Comprehensive suite including rainfall analysis, soil water management, and farm machinery calculators 
-                        to help farmers make data-driven decisions.
+                        Precision soil mapping platform enabling interactive map layers, ML-based soil prediction, and fertilizer recommendations for sustainable farming decisions.
                     </p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="bg-success/10 text-success px-3 py-1 rounded-full text-sm font-medium">JavaScript</span>
-                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Data Analysis</span>
-                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Agriculture</span>
+                        <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-medium">Soil Mapping</span>
+                        <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm font-medium">ML Prediction</span>
+                        <span class="bg-cyan-100 text-cyan-700 px-3 py-1 rounded-full text-sm font-medium">Fertilizer Advisory</span>
                     </div>
-                    <a href="./tools/farm-machinery/custom-hiring-calculator/machine-cost-calculator.html" target="_blank" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors duration-200">
+                    <a href="https://haiti.solumsense.info/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors duration-200">
                         View Project <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
-                
-                <!-- AI Plant Disease Detection -->
+
+                <!-- Spectagro -->
                 <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 bg-gradient-to-r from-secondary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-leaf text-white text-2xl"></i>
+                    <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-sky-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-microscope text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">AI Plant Disease Detection</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Spectagro Platform</h3>
                     <p class="text-gray-600 leading-relaxed mb-6 text-justify sm:text-left">
-                        Machine learning-powered mobile app for early detection of plant diseases using computer vision 
-                        and deep learning algorithms.
+                        Agri-tech platform integrating AI solutions for testing and analytics, soil nutrient recommendations, crop area estimation, sourcing workflows, and sustainability services.
                     </p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-sm font-medium">TensorFlow</span>
-                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Computer Vision</span>
-                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Mobile App</span>
+                        <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Agri AI</span>
+                        <span class="bg-sky-100 text-sky-700 px-3 py-1 rounded-full text-sm font-medium">Analytics</span>
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Sustainability</span>
                     </div>
-                    <span class="inline-flex items-center text-gray-500 font-semibold">
-                        Patent Pending <i class="fas fa-certificate ml-2"></i>
-                    </span>
-                </div>
-                
-                <!-- Soil Barcoding -->
-                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 bg-gradient-to-r from-accent to-success rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-qrcode text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Soil Barcoding System</h3>
-                    <p class="text-gray-600 leading-relaxed mb-6 text-justify sm:text-left">
-                        Innovative system for soil identification and analysis using barcode technology 
-                        for agricultural and environmental applications.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">JavaScript</span>
-                        <span class="bg-success/10 text-success px-3 py-1 rounded-full text-sm font-medium">Data Processing</span>
-                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Research</span>
-                    </div>
-                    <a href="./tools/soilBarcoding.html" target="_blank" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors duration-200">
+                    <a href="https://www.spectagro.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors duration-200">
                         View Project <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Zeno Rewards -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-gift text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Zeno Rewards</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-justify sm:text-left">
+                        Rewards and offers experience for Zeno users, focused on engagement workflows and loyalty-driven product journeys.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-violet-100 text-violet-700 px-3 py-1 rounded-full text-sm font-medium">Loyalty</span>
+                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">User Engagement</span>
+                        <span class="bg-fuchsia-100 text-fuchsia-700 px-3 py-1 rounded-full text-sm font-medium">Offers Platform</span>
+                    </div>
+                    <a href="https://rewards.zeno.health/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors duration-200">
+                        View Project <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Tools Hub -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-gradient-to-r from-success to-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-toolbox text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Agriculture Tools Hub</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-justify sm:text-left">
+                        One place to access all calculators: fertilizer dose, seed rate, spray mix, rainfall analysis, and machinery planning tools.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-success/10 text-success px-3 py-1 rounded-full text-sm font-medium">All Calculators</span>
+                        <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Quick Access</span>
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">Field Ready</span>
+                    </div>
+                    <a href="./tools/index.html" target="_blank" class="inline-flex items-center text-primary font-semibold hover:text-secondary transition-colors duration-200">
+                        Open Tools Hub <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
             </div>
@@ -718,7 +755,7 @@
             <div class="text-center space-y-6">
                 <div class="space-y-2">
                     <h3 class="text-3xl font-display font-bold">Anshuman Nayak</h3>
-                    <p class="text-gray-400 text-lg">FullStack Developer & AI Engineer</p>
+                    <p class="text-gray-400 text-lg">Senior FullStack Engineer · AI/ML Specialist</p>
                 </div>
                 
                 <div class="flex justify-center flex-wrap gap-4">
@@ -734,13 +771,19 @@
                     <a href="https://www.linkedin.com/in/anshuman-nayak-b07363123" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-blue-700 rounded-xl flex items-center justify-center transition-colors duration-200">
                         <i class="fab fa-linkedin text-xl"></i>
                     </a>
+                    <a href="https://scholar.google.com/citations?user=7Y64hhkAAAAJ&hl=en" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-emerald-600 rounded-xl flex items-center justify-center transition-colors duration-200" aria-label="Google Scholar" title="Google Scholar">
+                        <i class="fas fa-graduation-cap text-xl"></i>
+                    </a>
+                    <a href="https://orcid.org/0000-0003-3147-1828" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-green-600 rounded-xl flex items-center justify-center transition-colors duration-200" aria-label="ORCID" title="ORCID">
+                        <i class="fab fa-orcid text-xl"></i>
+                    </a>
                     <a href="https://github.com/anshumanfs" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-gray-600 rounded-xl flex items-center justify-center transition-colors duration-200">
                         <i class="fab fa-github text-xl"></i>
                     </a>
                 </div>
                 
                 <div class="border-t border-gray-800 pt-6 space-y-2">
-                    <p class="text-gray-400 text-sm">© 2025 Anshuman Nayak. All rights reserved.</p>
+                    <p class="text-gray-400 text-sm">© <span id="copyright-year"></span> Anshuman Nayak. All rights reserved.</p>
                     <p class="text-gray-500 text-sm">
                         Designed & Developed with ❤️ by <span class="text-primary font-semibold">Anshuman Nayak</span>
                     </p>
@@ -794,6 +837,8 @@
                 nav.classList.remove('bg-white/90');
             }
         });
+
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
     </script>
 </body>
 

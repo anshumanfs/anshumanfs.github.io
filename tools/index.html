@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      var needsProtocolUpgrade = window.location.protocol === 'http:';
+      var needsHostRedirect = window.location.hostname === 'anshumanfs.github.io';
+      var isLocalPreview = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (!isLocalPreview && (needsProtocolUpgrade || needsHostRedirect)) {
+        var target = 'https://anshumann.com' + window.location.pathname + window.location.search + window.location.hash;
+        window.location.replace(target);
+      }
+    })();
+  </script>
+  <meta name="description" content="Explore agriculture and soil science tools for fertilizer planning, seed rate, spray mix, rainfall analysis, and farm machinery cost calculations.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://anshumann.com/tools/index.html">
+  <meta property="og:title" content="Agriculture & Soil Science Tools Hub">
+  <meta property="og:description" content="A free collection of practical calculators for farmers, agronomists, and agri startups.">
+  <meta property="og:image" content="https://anshumann.com/images/avatar.jpeg">
+  <meta property="og:url" content="https://anshumann.com/tools/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Anshuman Nayak Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Agriculture & Soil Science Tools Hub">
+  <meta name="twitter:description" content="A free collection of practical calculators for farmers, agronomists, and agri startups.">
+  <meta name="twitter:image" content="https://anshumann.com/images/avatar.jpeg">
+  <title>Agriculture & Soil Science Tools Hub - Anshuman Nayak</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "name": "Agriculture & Soil Science Tools Hub",
+        "url": "https://anshumann.com/tools/index.html",
+        "description": "A collection of web-based agriculture and soil science calculators."
+      },
+      {
+        "@type": "ItemList",
+        "name": "Agriculture Tools",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://anshumann.com/tools/soil-science/quick-calculators/fertilizer-dose-calculator.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://anshumann.com/tools/soil-science/quick-calculators/seed-rate-calculator.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://anshumann.com/tools/soil-science/quick-calculators/pesticide-spray-mix-calculator.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://anshumann.com/tools/soil-water/rainfall-calculator/rainfall-analysis.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://anshumann.com/tools/farm-machinery/custom-hiring-calculator/machine-cost-calculator.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://anshumann.com/tools/soilBarcoding.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body class="bg-gradient-to-br from-green-50 via-teal-50 to-cyan-50 min-h-screen text-gray-900">
+  <header class="border-b border-green-100 bg-white/90 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between gap-4">
+      <div>
+        <p class="text-sm font-semibold text-emerald-700 uppercase tracking-wide">Tools Directory</p>
+        <h1 class="text-2xl md:text-3xl font-bold">Agriculture & Soil Science Tools Hub</h1>
+      </div>
+      <a href="../index.html" class="px-4 py-2 rounded-full bg-emerald-700 text-white hover:bg-emerald-800 transition font-semibold">Back to Portfolio</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <section class="mb-10">
+      <p class="text-lg text-gray-700 max-w-4xl">
+        Fast, practical calculators for day-to-day field decisions. Designed for quick use on mobile and desktop.
+      </p>
+    </section>
+
+    <section class="mb-12">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold">Popular Tools</h2>
+        <span class="text-sm text-gray-500">Ready in under 1 minute</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <article class="bg-white rounded-2xl border border-emerald-100 p-6 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4"><i class="fas fa-flask"></i></div>
+          <h3 class="text-lg font-bold mb-2">Fertilizer Dose Calculator</h3>
+          <p class="text-gray-600 text-sm mb-4">Calculate NPK and fertilizer quantity by crop and area.</p>
+          <a href="./soil-science/quick-calculators/fertilizer-dose-calculator.html" class="inline-flex items-center text-emerald-700 font-semibold">Open Tool <i class="fas fa-arrow-right ml-2"></i></a>
+        </article>
+        <article class="bg-white rounded-2xl border border-orange-100 p-6 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center mb-4"><i class="fas fa-seedling"></i></div>
+          <h3 class="text-lg font-bold mb-2">Seed Rate Calculator</h3>
+          <p class="text-gray-600 text-sm mb-4">Estimate seed requirement using spacing and seed quality.</p>
+          <a href="./soil-science/quick-calculators/seed-rate-calculator.html" class="inline-flex items-center text-orange-700 font-semibold">Open Tool <i class="fas fa-arrow-right ml-2"></i></a>
+        </article>
+        <article class="bg-white rounded-2xl border border-cyan-100 p-6 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-4"><i class="fas fa-vial"></i></div>
+          <h3 class="text-lg font-bold mb-2">Pesticide Spray Mix Calculator</h3>
+          <p class="text-gray-600 text-sm mb-4">Get total solution and per-tank pesticide mix instantly.</p>
+          <a href="./soil-science/quick-calculators/pesticide-spray-mix-calculator.html" class="inline-flex items-center text-cyan-700 font-semibold">Open Tool <i class="fas fa-arrow-right ml-2"></i></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="space-y-10">
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Soil Science</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <article class="bg-white rounded-2xl border border-gray-100 p-6">
+            <h3 class="text-lg font-bold">Fertilizer Dose Calculator</h3>
+            <p class="text-gray-600 mt-2 mb-4">Plan nutrient application with crop-wise NPK recommendations.</p>
+            <a href="./soil-science/quick-calculators/fertilizer-dose-calculator.html" class="text-primary font-semibold text-emerald-700">Open Tool</a>
+          </article>
+          <article class="bg-white rounded-2xl border border-gray-100 p-6">
+            <h3 class="text-lg font-bold">Soil Barcoding System</h3>
+            <p class="text-gray-600 mt-2 mb-4">Generate and manage soil barcodes for tracking and analysis workflows.</p>
+            <a href="./soilBarcoding.html" class="text-primary font-semibold text-emerald-700">Open Tool</a>
+          </article>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Water & Irrigation</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <article class="bg-white rounded-2xl border border-gray-100 p-6">
+            <h3 class="text-lg font-bold">Rainfall Analysis DSS</h3>
+            <p class="text-gray-600 mt-2 mb-4">Upload station rainfall data and get annual, monthly, drought, and dry spell insights.</p>
+            <a href="./soil-water/rainfall-calculator/rainfall-analysis.html" class="text-primary font-semibold text-emerald-700">Open Tool</a>
+          </article>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Farm Machinery</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <article class="bg-white rounded-2xl border border-gray-100 p-6">
+            <h3 class="text-lg font-bold">Custom Hiring Cost Calculator</h3>
+            <p class="text-gray-600 mt-2 mb-4">Compute fixed and variable costs to determine machinery custom hiring rates.</p>
+            <a href="./farm-machinery/custom-hiring-calculator/machine-cost-calculator.html" class="text-primary font-semibold text-emerald-700">Open Tool</a>
+          </article>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Plant Protection</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <article class="bg-white rounded-2xl border border-gray-100 p-6">
+            <h3 class="text-lg font-bold">Pesticide Spray Mix Calculator</h3>
+            <p class="text-gray-600 mt-2 mb-4">Calculate product concentration and tank-wise field spray planning.</p>
+            <a href="./soil-science/quick-calculators/pesticide-spray-mix-calculator.html" class="text-primary font-semibold text-emerald-700">Open Tool</a>
+          </article>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Crop Planning</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <article class="bg-white rounded-2xl border border-gray-100 p-6">
+            <h3 class="text-lg font-bold">Seed Rate Calculator</h3>
+            <p class="text-gray-600 mt-2 mb-4">Estimate seed quantity from area, spacing, germination, purity, and seed weight.</p>
+            <a href="./soil-science/quick-calculators/seed-rate-calculator.html" class="text-primary font-semibold text-emerald-700">Open Tool</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
