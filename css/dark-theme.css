@@ -1020,6 +1020,17 @@ body.theme-dark #contact textarea:focus {
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 0 22px rgba(96, 165, 250, 0.2) !important;
 }
 
+body.theme-dark #about .w-12.h-12.rounded-full {
+    background-image: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(168, 85, 247, 0.92)) !important;
+    border: 1px solid rgba(191, 219, 254, 0.35) !important;
+}
+
+body.theme-dark #about .w-12.h-12.rounded-full i {
+    color: #f8fafc !important;
+    opacity: 1 !important;
+    font-size: 0.95rem;
+}
+
 body.theme-dark footer {
     background:
         radial-gradient(800px 260px at 50% -40%, rgba(45, 212, 191, 0.12), transparent 60%),
