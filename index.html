@@ -278,7 +278,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 font-medium">Age</p>
-                                    <p class="text-lg font-semibold text-gray-900">26</p>
+                                    <p class="text-lg font-semibold text-gray-900" id="dynamic-age"></p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -1066,6 +1066,18 @@
         }
 
         updateCitationCounts();
+
+        (function () {
+            var ageEl = document.getElementById('dynamic-age');
+            if (!ageEl) return;
+            var dob = new Date(1998, 5, 29); // 29-06-1998
+            var today = new Date();
+            var age = today.getFullYear() - dob.getFullYear();
+            var hasHadBirthdayThisYear = (today.getMonth() > dob.getMonth()) ||
+                (today.getMonth() === dob.getMonth() && today.getDate() >= dob.getDate());
+            if (!hasHadBirthdayThisYear) age--;
+            ageEl.textContent = age;
+        })();
     </script>
 </body>
 
