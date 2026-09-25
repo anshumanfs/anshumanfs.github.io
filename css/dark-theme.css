@@ -1020,6 +1020,18 @@ body.theme-dark #contact textarea:focus {
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 0 22px rgba(96, 165, 250, 0.2) !important;
 }
 
+body.theme-dark #contact .flex.items-center.space-x-4 > .w-12.h-12.bg-gradient-to-r {
+    background-image: linear-gradient(135deg, rgba(59, 130, 246, 0.96), rgba(168, 85, 247, 0.92)) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(191, 219, 254, 0.32) !important;
+    box-shadow: 0 0 22px rgba(96, 165, 250, 0.18) !important;
+}
+
+body.theme-dark #contact .flex.items-center.space-x-4 > .w-12.h-12.bg-gradient-to-r i {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
 body.theme-dark #about .w-12.h-12.rounded-full {
     background-image: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(168, 85, 247, 0.92)) !important;
     border: 1px solid rgba(191, 219, 254, 0.35) !important;
