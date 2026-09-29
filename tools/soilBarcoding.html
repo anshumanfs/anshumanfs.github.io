@@ -140,6 +140,19 @@
             display: none;
         }
 
+        .format-table {
+            color: inherit;
+        }
+
+        body.theme-dark .format-table th,
+        body.theme-dark .format-table td {
+            border-color: rgba(148, 163, 184, 0.25);
+        }
+
+        body.theme-dark .form-text {
+            color: #94a3b8;
+        }
+
         .theme-toggle {
             border: 1px solid rgba(255, 255, 255, 0.4);
             color: #fff;
@@ -191,9 +204,61 @@
         <div class="container my-5">
             <h2>Labeling format</h2>
             <code>{Country}-{State}-{Locality}-{Lat}-{Long}-{TimeStamp}-{UniqueCode}</code>
-            <p>Example: <code>IN-OR-BBSR-20.2-85.8-2021.08-000001</code></p>
+            <p>Example: <code>IN-OR-BBSR-20.2-85.8-2021-08-000100</code></p>
             <p>Every field is optional. Anything left blank is left out of the label.</p>
-            <p>Example: <code>OR-BBSR-AN000001</code> (country, lat, long and month left blank)</p>
+            <p>Example: <code>OR-BBSR-AN100</code> (country, lat, long and month left blank)</p>
+
+            <h3 class="h5 mt-4">Unique code formats</h3>
+            <p>Examples use Name Starting Series <code>100</code>, Prefix <code>AN</code> and Suffix <code>S</code>.</p>
+            <div class="table-responsive">
+                <table class="table table-sm format-table">
+                    <thead>
+                        <tr>
+                            <th>Format</th>
+                            <th>How it's built</th>
+                            <th>First three labels</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Series</td>
+                            <td>The number as is</td>
+                            <td><code>100</code>, <code>101</code>, <code>102</code></td>
+                        </tr>
+                        <tr>
+                            <td>Series with Prefix</td>
+                            <td>Prefix + number</td>
+                            <td><code>AN100</code>, <code>AN101</code>, <code>AN102</code></td>
+                        </tr>
+                        <tr>
+                            <td>Numeric Series</td>
+                            <td>Number padded with zeros to 6 digits</td>
+                            <td><code>000100</code>, <code>000101</code>, <code>000102</code></td>
+                        </tr>
+                        <tr>
+                            <td>Alphanumeric Series</td>
+                            <td>Number counted in 0-9 and A-Z, padded to 6 characters</td>
+                            <td><code>00002S</code>, <code>00002T</code>, <code>00002U</code></td>
+                        </tr>
+                        <tr>
+                            <td>Series with Prefix and Suffix</td>
+                            <td>Prefix + number + suffix</td>
+                            <td><code>AN100S</code>, <code>AN101S</code>, <code>AN102S</code></td>
+                        </tr>
+                        <tr>
+                            <td>Random</td>
+                            <td>6 random letters and digits (no look-alike 0/O or 1/I)</td>
+                            <td><code>K7M2QX</code>, <code>P4HZ9C</code>, <code>W3TNB8</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="h5 mt-4">Barcode</h3>
+            <p>The barcode encodes Barcode Prefix + Overall Barcode Series, counting up per label.
+                With prefix <code>SSL</code> and series <code>10000000</code>: <code>SSL10000000</code>,
+                <code>SSL10000001</code>, <code>SSL10000002</code>. Leave the prefix blank to get
+                <code>10000000</code>, <code>10000001</code>, and so on.</p>
         </div>
         <!-- Put a container with a form to input the number of labels -->
         <div class="container my-5">
@@ -243,6 +308,7 @@
                         <option value="series-with-prefix-n-suffix">Series with Prefix and Suffix</option>
                         <option value="random">Random</option>
                     </select>
+                    <div class="form-text" id="uniqueCodePreview"></div>
                 </div>
                 <div class="mb-3" id="prefixGroup">
                     <label for="uniqueCodePrefix" class="form-label">Prefix</label>

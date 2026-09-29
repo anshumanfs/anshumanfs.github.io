@@ -54,6 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return raw === "" ? Number($(selector).prop("defaultValue")) : Number(raw);
     }
 
+    function updateUniqueCodePreview() {
+        const format = $("#uniqueCodeFormat").val();
+        const startRaw = $("#nameStartingSeries").val().trim();
+        if (format !== "random" && startRaw === "") {
+            $("#uniqueCodePreview").text("Name Starting Series is blank, so no unique code will be added.");
+            return;
+        }
+        const prefix = $("#uniqueCodePrefix").val().trim();
+        const suffix = $("#uniqueCodeSuffix").val().trim();
+        const samples = [0, 1, 2].map(i => buildUniqueCode(format, Number(startRaw) + i, prefix, suffix));
+        $("#uniqueCodePreview").text(`Preview: ${samples.join(", ")}, ...`);
+    }
+
     function generateLabels() {
         let numberOfLabels = numberOrDefault("#numberOfRows");
         let month = $("#month").val();
@@ -111,7 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $("#uniqueCodeFormat").on("change", updateAffixFields);
+    $("#uniqueCodeFormat, #uniqueCodePrefix, #uniqueCodeSuffix, #nameStartingSeries").on("input change", updateUniqueCodePreview);
     updateAffixFields();
+    updateUniqueCodePreview();
     updateThemeIcon();
 
     $("#soilLabelForm").on("submit", function (event) {
