@@ -262,6 +262,76 @@ h1 {
     display: none;
 }
 
+/* Menu button: added by js/theme.js, shown only on narrow screens. */
+.menu-toggle {
+    order: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.menu-toggle svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    overflow: visible;
+}
+
+.menu-toggle path {
+    transform-origin: 12px 12px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.site-header.is-open .menu-toggle .bar-top {
+    transform: rotate(45deg) translateY(5px);
+}
+
+.site-header.is-open .menu-toggle .bar-mid {
+    opacity: 0;
+}
+
+.site-header.is-open .menu-toggle .bar-bottom {
+    transform: rotate(-45deg) translateY(-5px);
+}
+
+@media (max-width: 47.99rem) {
+    .site-header.has-menu .wrap {
+        column-gap: 0.5rem;
+    }
+
+    .site-header.has-menu .site-nav {
+        order: 3;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        font-size: 0.9375rem;
+    }
+
+    .site-header.has-menu.is-open .site-nav {
+        display: flex;
+    }
+
+    .site-header.has-menu .site-nav a {
+        padding: 0.8125rem 0;
+        border-top: 1px solid var(--rule);
+    }
+
+    .site-header.has-menu .site-nav a.is-active {
+        text-decoration: none;
+    }
+
+    .site-header.has-menu .site-nav a.is-active::before {
+        content: "→ ";
+    }
+}
+
 @media (min-width: 48rem) {
     .site-nav {
         order: 1;
@@ -272,6 +342,10 @@ h1 {
     .theme-toggle {
         order: 2;
         margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: none;
     }
 }
 
@@ -322,8 +396,60 @@ h1 {
 
 /* Hero */
 
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
 .hero .wrap {
+    position: relative;
+    z-index: 1;
     padding: 0;
+}
+
+/* Skill icons drifting behind the hero; populated from the Skills list in index.html. */
+.hero-float {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.hero-float svg {
+    position: absolute;
+    width: var(--size, 2rem);
+    height: var(--size, 2rem);
+    fill: var(--faint);
+    opacity: 0;
+    animation: hero-float linear infinite;
+}
+
+@keyframes hero-float {
+    0% {
+        opacity: 0;
+        transform: translate(0, 1.5rem) rotate(-6deg);
+    }
+    35%,
+    65% {
+        opacity: var(--float-peak, 0.16);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(0.75rem, -2.5rem) rotate(6deg);
+    }
+}
+
+/* On phones the icons sit directly behind the text, so keep them quieter. */
+@media (max-width: 47.99rem) {
+    .hero-float {
+        --float-peak: 0.09;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-float svg {
+        animation: none;
+        opacity: 0.08;
+    }
 }
 
 .hero-grid {
@@ -394,6 +520,18 @@ h1 {
     margin-left: 0.25rem;
 }
 
+@media (max-width: 36rem) {
+    .actions .button {
+        flex: 1 1 9rem;
+        justify-content: center;
+    }
+
+    .actions .links {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
 .stats {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -460,6 +598,11 @@ h1 {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
+}
+
+/* Let long words (emails, URLs) wrap instead of widening the grid on small phones. */
+.section-grid > * {
+    min-width: 0;
 }
 
 @media (min-width: 48rem) {
@@ -679,6 +822,18 @@ h1 {
     color: var(--accent);
 }
 
+/* On phones the year sits above the title so titles get the full width. */
+@media (max-width: 36rem) {
+    .pub {
+        grid-template-columns: 1fr;
+    }
+
+    .pub-year {
+        padding-top: 0;
+        margin-bottom: 0.25rem;
+    }
+}
+
 .pubs-footnote {
     margin: 1.75rem 0 0;
     color: var(--faint);
@@ -759,8 +914,9 @@ h1 {
 
 .contact-list li {
     display: grid;
-    grid-template-columns: 6.5rem 1fr;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
     gap: 1rem;
+    overflow-wrap: anywhere;
     padding: 0.625rem 0;
     border-top: 1px solid var(--rule);
 }

@@ -65,3 +65,46 @@
         });
     });
 })();
+
+// On narrow screens the primary nav collapses behind a menu button. The button is
+// added here so every page sharing the header gets it; without JS the nav stays visible.
+document.addEventListener('DOMContentLoaded', function () {
+    var header = document.querySelector('.site-header');
+    var nav = header && header.querySelector('.site-nav');
+    if (!nav) return;
+
+    nav.id = nav.id || 'site-nav';
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'menu-toggle';
+    button.setAttribute('aria-controls', nav.id);
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-label', 'Open menu');
+    button.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path class="bar-top" d="M4 7h16"/><path class="bar-mid" d="M4 12h16"/><path class="bar-bottom" d="M4 17h16"/></svg>';
+    nav.parentNode.insertBefore(button, nav);
+    header.classList.add('has-menu');
+
+    function setOpen(open) {
+        header.classList.toggle('is-open', open);
+        button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    button.addEventListener('click', function () {
+        setOpen(!header.classList.contains('is-open'));
+    });
+    nav.addEventListener('click', function (event) {
+        if (event.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && header.classList.contains('is-open')) {
+            setOpen(false);
+            button.focus();
+        }
+    });
+    if (window.matchMedia) {
+        var wide = window.matchMedia('(min-width: 48rem)');
+        var close = function () { if (wide.matches) setOpen(false); };
+        if (wide.addEventListener) wide.addEventListener('change', close);
+    }
+});
