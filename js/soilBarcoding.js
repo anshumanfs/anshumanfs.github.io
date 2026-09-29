@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    function generateSoilBarcode(id, data) {
-        JsBarcode(id, data, {
+    const FORMATS_WITH_PREFIX = ["series-with-prefix", "series-with-prefix-n-suffix"];
+    const FORMATS_WITH_SUFFIX = ["series-with-prefix-n-suffix"];
+
+    function generateSoilBarcode(selector, data) {
+        JsBarcode(selector, data, {
             format: "CODE128",
             width: 2,
             height: 40,
@@ -13,35 +16,103 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function randomCode(length) {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let code = "";
+        for (let i = 0; i < length; i++) {
+            code += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return code;
+    }
+
+    function buildUniqueCode(format, number, prefix, suffix) {
+        switch (format) {
+            case "series-with-prefix":
+                return `${prefix}${number}`;
+            case "series-with-prefix-n-suffix":
+                return `${prefix}${number}${suffix}`;
+            case "numeric-series":
+                return String(number).padStart(6, "0");
+            case "alphanumeric-series":
+                return number.toString(36).toUpperCase().padStart(6, "0");
+            case "random":
+                return randomCode(6);
+            default:
+                return String(number);
+        }
+    }
+
+    function updateAffixFields() {
+        const format = $("#uniqueCodeFormat").val();
+        $("#prefixGroup").toggle(FORMATS_WITH_PREFIX.includes(format));
+        $("#suffixGroup").toggle(FORMATS_WITH_SUFFIX.includes(format));
+    }
+
+    // Blank numeric settings fall back to the value the field ships with
+    function numberOrDefault(selector) {
+        const raw = $(selector).val().trim();
+        return raw === "" ? Number($(selector).prop("defaultValue")) : Number(raw);
+    }
+
     function generateLabels() {
-        let numberOfLabels = $("#numberOfRows").val();
-        let country = $("#country").val();
-        let state = $("#state").val();
-        let locality = $("#locality").val();
-        let lat = $("#latitude").val();
-        let lon = $("#longitude").val();
-        let date = new Date($("#month").val()).toISOString().slice(0, 7);
-        let startingSeries = Number($("#nameStartingSeries").val());
-        let barcodeSeries = Number($("#overallBarcodeSeries").val());
+        let numberOfLabels = numberOrDefault("#numberOfRows");
+        let month = $("#month").val();
+        let startingSeriesRaw = $("#nameStartingSeries").val().trim();
+        let barcodeSeries = numberOrDefault("#overallBarcodeSeries");
+        let format = $("#uniqueCodeFormat").val();
+        let prefix = FORMATS_WITH_PREFIX.includes(format) ? $("#uniqueCodePrefix").val().trim() : "";
+        let suffix = FORMATS_WITH_SUFFIX.includes(format) ? $("#uniqueCodeSuffix").val().trim() : "";
+        let barcodePrefix = $("#barcodePrefix").val().trim();
+        // Blank fields are left out of the label entirely
+        let locationParts = [
+            $("#country").val().trim(),
+            $("#state").val().trim(),
+            $("#locality").val().trim(),
+            $("#latitude").val().trim(),
+            $("#longitude").val().trim(),
+            month ? month.slice(0, 7) : "",
+        ];
         let labelHtml = "";
         for (let i = 0; i < numberOfLabels; i++) {
+            let uniqueCode = format === "random" || startingSeriesRaw !== ""
+                ? buildUniqueCode(format, Number(startingSeriesRaw) + i, prefix, suffix)
+                : "";
+            let label = [...locationParts, uniqueCode].filter(Boolean).join("-");
             labelHtml += `
             <div class="row-custom">
                 <div class="custom-div inner-div" style="margin-left: -10px;">
-                    <svg id="barcode${i}" class="barcode"></svg>
-                    <span class="labelSpan">${country}-${state}-${locality}-${lat}-${lon}-${date}-${startingSeries + i}</span>
+                    <svg class="barcode barcode${i}"></svg>
+                    <span class="labelSpan">${label}</span>
                 </div>
                 <div class="custom-div inner-div">
-                    <svg id="barcode${i}" class="barcode"></svg>
-                    <span class="labelSpan">${country}-${state}-${locality}-${lat}-${lon}-${date}-${startingSeries + i}</span>
+                    <svg class="barcode barcode${i}"></svg>
+                    <span class="labelSpan">${label}</span>
                 </div>
             </div>`;
         }
         $("#labelContainer").html(labelHtml);
         for (let i = 0; i < numberOfLabels; i++) {
-            generateSoilBarcode(`#barcode${i}`, `SSL${barcodeSeries + i}`);
+            generateSoilBarcode(`.barcode${i}`, `${barcodePrefix}${barcodeSeries + i}`);
         }
     }
+
+    function updateThemeIcon() {
+        const isDark = document.body.classList.contains("theme-dark");
+        $("#themeToggle i").attr("class", isDark ? "fa-solid fa-sun" : "fa-solid fa-moon");
+        $("#themeToggle").attr("title", isDark ? "Switch to light theme" : "Switch to dark theme");
+    }
+
+    $("#themeToggle").on("click", function () {
+        const isDark = document.body.classList.toggle("theme-dark");
+        try {
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+        } catch (e) { }
+        updateThemeIcon();
+    });
+
+    $("#uniqueCodeFormat").on("change", updateAffixFields);
+    updateAffixFields();
+    updateThemeIcon();
 
     $("#soilLabelForm").on("submit", function (event) {
         event.preventDefault();
