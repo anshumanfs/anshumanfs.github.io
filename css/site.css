@@ -407,48 +407,58 @@ h1 {
     padding: 0;
 }
 
-/* Skill icons drifting behind the hero; populated from the Skills list in index.html. */
+/* Skill icons drifting behind the hero; populated from the Skills list in index.html.
+   The layer's opacity sets how faint they are, so the keyframes only fade 0 -> 1 -> 0
+   (custom properties inside @keyframes are unreliable in Safari). */
 .hero-float {
     position: absolute;
     inset: 0;
+    opacity: 0.16;
     pointer-events: none;
 }
 
 .hero-float svg {
     position: absolute;
-    width: var(--size, 2rem);
-    height: var(--size, 2rem);
+    width: 2rem;
+    height: 2rem;
     fill: var(--faint);
     opacity: 0;
-    animation: hero-float linear infinite;
+    will-change: transform, opacity;
+    animation-name: hero-float;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 @keyframes hero-float {
     0% {
         opacity: 0;
-        transform: translate(0, 1.5rem) rotate(-6deg);
+        transform: translate3d(0, 1.5rem, 0) rotate(-6deg);
     }
     35%,
     65% {
-        opacity: var(--float-peak, 0.16);
+        opacity: 1;
     }
     100% {
         opacity: 0;
-        transform: translate(0.75rem, -2.5rem) rotate(6deg);
+        transform: translate3d(0.75rem, -2.5rem, 0) rotate(6deg);
     }
 }
 
 /* On phones the icons sit directly behind the text, so keep them quieter. */
 @media (max-width: 47.99rem) {
     .hero-float {
-        --float-peak: 0.09;
+        opacity: 0.09;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .hero-float {
+        opacity: 0.08;
+    }
+
     .hero-float svg {
         animation: none;
-        opacity: 0.08;
+        opacity: 1;
     }
 }
 

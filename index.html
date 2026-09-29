@@ -656,7 +656,9 @@
                 svg.appendChild(use);
                 svg.style.left = x + '%';
                 svg.style.top = y + '%';
-                svg.style.setProperty('--size', (1.5 + Math.random() * 1.75).toFixed(2) + 'rem');
+                var size = (1.5 + Math.random() * 1.75).toFixed(2) + 'rem';
+                svg.style.width = size;
+                svg.style.height = size;
                 svg.style.animationDuration = duration.toFixed(1) + 's';
                 svg.style.animationDelay = (-Math.random() * duration).toFixed(1) + 's';
                 layer.appendChild(svg);
