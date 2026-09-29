@@ -40,65 +40,78 @@
     "description": "Search research papers by title or DOI and fetch live citation counts from OpenAlex."
   }
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-  <link rel="stylesheet" href="../../css/dark-theme.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Rethink+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/site.css">
+  <script src="../../js/theme.js"></script>
 </head>
-<body class="theme-dark min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100">
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
-    <div class="flex items-center justify-between gap-4 mb-10">
-      <div>
-        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-primary mb-2">Research Tool</p>
-        <h1 class="text-3xl md:text-5xl font-display font-bold">Citation Lookup</h1>
-        <p class="text-slate-400 mt-3 max-w-2xl">Search by paper title or DOI and fetch live citation data from OpenAlex.</p>
-      </div>
-      <a href="../index.html" class="px-4 py-2 rounded-full border border-slate-700 text-slate-200 hover:border-primary hover:text-primary transition">Back to Tools</a>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../../index.html">Anshuman Nayak</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../../index.html#about">About</a>
+        <a href="../../index.html#experience">Experience</a>
+        <a href="../../index.html#research">Research</a>
+        <a href="../../tools/index.html" class="is-active">Tools</a>
+        <a href="../../index.html#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
+        <svg class="icon-system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
     </div>
+  </header>
+  <main id="main" class="tool">
+    <div class="wrap">
+      <p class="crumbs mono"><a href="../../tools/index.html">Tools</a> / Research</p>
+      <h1>Citation Lookup</h1>
+      <p class="lede">Search by paper title or DOI and fetch live citation data from OpenAlex.</p>
 
-    <section class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 mb-8">
-      <div class="rounded-3xl border border-slate-800 bg-slate-950/80 p-6 shadow-2xl">
-        <form id="citation-form" class="space-y-4">
-          <div>
-            <label for="query" class="block text-sm font-semibold text-slate-300 mb-2">Paper title or DOI</label>
-            <input id="query" name="query" type="text" placeholder="e.g. 10.1038/s41598-025-24236-9 or soil organic carbon estimation" class="w-full rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/60" />
-          </div>
-          <div class="flex flex-col sm:flex-row gap-3">
-            <button type="submit" class="inline-flex items-center justify-center px-5 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold hover:shadow-lg transition-all duration-200">
-              Search Citations
-              <i class="fas fa-magnifying-glass ml-2"></i>
-            </button>
-            <button type="button" id="sample-search" class="inline-flex items-center justify-center px-5 py-3 rounded-full border border-slate-700 text-slate-200 hover:border-primary hover:text-primary transition-all duration-200">
-              Load Sample Query
-            </button>
+      <section class="panel">
+        <form id="citation-form" class="field">
+          <label for="query">Paper title or DOI</label>
+          <input id="query" name="query" type="text" placeholder="e.g. 10.1038/s41598-025-24236-9 or soil organic carbon estimation">
+          <div class="button-row">
+            <button type="submit" class="button">Search citations</button>
+            <button type="button" id="sample-search" class="button secondary">Load sample query</button>
           </div>
         </form>
-
-        <div class="mt-6 flex flex-wrap gap-2">
-          <button type="button" class="sample-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 text-sm" data-query="10.1038/s41598-025-24236-9">Scientific Reports paper</button>
-          <button type="button" class="sample-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 text-sm" data-query="digital soil mapping available phosphorus smartphone RGB imaging">Soil mapping</button>
-          <button type="button" class="sample-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 text-sm" data-query="rice disease nutrient deficiency detection smartphone image processing">Rice disease detection</button>
+        <div class="chips">
+          <button type="button" class="chip sample-chip" data-query="10.1038/s41598-025-24236-9">Scientific Reports paper</button>
+          <button type="button" class="chip sample-chip" data-query="digital soil mapping available phosphorus smartphone RGB imaging">Soil mapping</button>
+          <button type="button" class="chip sample-chip" data-query="rice disease nutrient deficiency detection smartphone image processing">Rice disease detection</button>
         </div>
-      </div>
+      </section>
 
-      <div class="rounded-3xl border border-slate-800 bg-slate-950/80 p-6 shadow-2xl">
-        <h2 class="text-xl font-bold mb-3">How it works</h2>
-        <ul class="space-y-3 text-slate-400 leading-relaxed">
-          <li>• DOI input fetches a single paper directly from OpenAlex.</li>
-          <li>• Title search returns the closest matching works with citation counts.</li>
-          <li>• Results include DOI links, venue, year, and citation totals.</li>
-        </ul>
-      </div>
-    </section>
+      <section class="panel" aria-live="polite">
+        <div class="entry-head">
+          <h2>Results</h2>
+          <span id="status" class="mono muted">Ready to search</span>
+        </div>
+        <div id="results" class="cite-list"></div>
+      </section>
 
-    <section>
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl font-bold">Results</h2>
-        <span id="status" class="text-sm text-slate-400">Ready to search</span>
-      </div>
-      <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
-    </section>
+      <section class="notes">
+        <h2>How it works</h2>
+        <p>A DOI fetches a single paper directly from OpenAlex. A title search returns the closest matching works.</p>
+        <p>Results include venue, year, authors, citation totals and DOI links.</p>
+      </section>
+    </div>
   </main>
-
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© 2026 Anshuman Nayak</span>
+      <ul class="links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../tools/index.html">All tools</a></li>
+        <li><a href="https://github.com/anshumanfs" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
   <script>
     const form = document.getElementById('citation-form');
     const queryInput = document.getElementById('query');
@@ -117,7 +130,7 @@
 
     function renderResults(items) {
       if (!items.length) {
-        results.innerHTML = '<div class="md:col-span-2 rounded-3xl border border-slate-800 bg-slate-950/60 p-8 text-slate-400">No results found.</div>';
+        results.innerHTML = '<p class="empty">No results found.</p>';
         return;
       }
 
@@ -133,21 +146,14 @@
         const doiUrl = paper.doi ? paper.doi.replace(/^https?:\/\/doi\.org\//, 'https://doi.org/') : '';
 
         return `
-          <article class="rounded-3xl border border-slate-800 bg-slate-950/80 p-6 shadow-xl">
-            <div class="flex items-start justify-between gap-4 mb-4">
-              <div>
-                <p class="text-sm uppercase tracking-[0.22em] text-primary mb-2">${venue} · ${year}</p>
-                <h3 class="text-xl font-bold text-slate-100 leading-snug">${title}</h3>
-              </div>
-              <div class="text-right">
-                <div class="text-2xl font-bold text-primary">${citations}</div>
-                <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Citations</div>
-              </div>
-            </div>
-            <p class="text-slate-400 text-sm mb-4">${authors}${authorSuffix}</p>
-            <div class="flex flex-wrap gap-3">
-              ${doiUrl ? `<a href="${doiUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold hover:bg-primary/20 transition">DOI</a>` : ''}
-              <a href="${openAlexUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 rounded-full bg-slate-800 text-slate-200 font-semibold hover:bg-slate-700 transition">OpenAlex</a>
+          <article class="cite">
+            <p class="meta mono">${venue} · ${year}</p>
+            <h3>${title}</h3>
+            <div class="cite-count">${citations.toLocaleString()}<span>citations</span></div>
+            <p class="authors">${authors}${authorSuffix}</p>
+            <div class="cite-links">
+              ${doiUrl ? `<a href="${doiUrl}" target="_blank" rel="noopener noreferrer">DOI</a>` : ''}
+              <a href="${openAlexUrl}" target="_blank" rel="noopener noreferrer">OpenAlex</a>
             </div>
           </article>
         `;
@@ -182,7 +188,7 @@
         renderResults(items);
       } catch (error) {
         status.textContent = 'Search unavailable';
-        results.innerHTML = '<div class="md:col-span-2 rounded-3xl border border-slate-800 bg-slate-950/60 p-8 text-slate-400">OpenAlex lookup failed. Try a different query or DOI.</div>';
+        results.innerHTML = '<p class="empty">OpenAlex lookup failed. Try a different query or DOI.</p>';
       }
     }
 

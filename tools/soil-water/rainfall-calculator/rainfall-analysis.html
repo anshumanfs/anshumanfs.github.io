@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,30 +47,59 @@
             }
         }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Rethink+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../css/site.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Map the palettes used by this page (and by its script) onto the site's ink-blue scale.
+    var ink = {50:'#f3f5fb',100:'#e6ebf6',200:'#c9d3ec',300:'#a0b2dc',400:'#6f88c4',500:'#4764a8',600:'#2f4b8f',700:'#1f3a7a',800:'#182e62',900:'#13244d',950:'#0c1733'};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { green: ink, emerald: ink, teal: ink, sky: ink, blue: ink, lime: ink, cyan: ink },
+          fontFamily: { sans: ['Rethink Sans', 'system-ui', 'sans-serif'], mono: ['DM Mono', 'monospace'] },
+          fontWeight: { bold: '600' }
+        }
+      }
+    };
+  </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.js"></script>
-    <link rel="stylesheet" href="../../../css/dark-theme.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #d1fae5; /* Lighter green border for tables */ padding: 8px; text-align: left; }
-        th { background-color: #ecfdf5; /* Very light green for table headers */ }
+        th, td { border: 1px solid #e3e3de; padding: 8px; text-align: left; }
+        th { background-color: #f3f5fb; }
         .sticky-header { position: sticky; top: 0; z-index: 10; }
     </style>
 </head>
-<body class="theme-dark bg-gradient-to-br from-green-100 to-emerald-200 min-h-screen p-4 md:p-8">
-    <div class="container mx-auto bg-white shadow-2xl rounded-lg p-6 md:p-10">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-green-700">🌧️ Decision Support System for Rainfall Analysis</h1>
-            <p class="text-gray-600 mt-2">Upload your rainfall data to generate insights and reports.</p>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../../../index.html">Anshuman Nayak</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../../../index.html#about">About</a>
+        <a href="../../../index.html#experience">Experience</a>
+        <a href="../../../index.html#research">Research</a>
+        <a href="../../../tools/index.html" class="is-active">Tools</a>
+        <a href="../../../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+    <main id="main" class="max-w-6xl mx-4 xl:mx-auto my-6 md:my-10 bg-white border border-gray-200 rounded-lg p-5 md:p-10">
+        <header class="mb-8">
+            <p class="crumbs mono"><a href="../../../tools/index.html">Tools</a> / Water</p>
+            <h1 class="text-3xl md:text-4xl text-gray-900">Rainfall Analysis</h1>
+            <p class="lede">A decision-support tool: upload station rainfall data to generate annual, monthly, drought and dry-spell reports.</p>
         </header>
 
-        <section id="inputSection" class="mb-8 p-6 bg-green-50 rounded-lg shadow">
+        <section id="inputSection" class="mb-8 p-6 bg-green-50 rounded-lg">
             <h2 class="text-2xl font-semibold text-green-600 mb-4">1. Upload Data File</h2>
             <div class="mb-4">
                 <label for="fileInput" class="block text-sm font-medium text-gray-700 mb-1">Select CSV, XLSX, or XLS file:</label>
@@ -110,7 +139,7 @@
                     <input type="text" id="station2LatLon" placeholder="e.g., 20.001, 86.25" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
                 </div>
             </div>
-            <button id="processButton" class="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-150 ease-in-out disabled:opacity-50">
+            <button id="processButton" class="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-md transition duration-150 ease-in-out disabled:opacity-50">
                 Process Data
             </button>
             <div id="loadingIndicator" class="hidden text-center mt-4">
@@ -123,9 +152,9 @@
                  <div class="flex justify-between items-center">
                     <h2 class="text-2xl font-semibold text-green-600">2. Analysis Results</h2>
                     <div class="flex space-x-2">
-                        <button id="exportCsvButton" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-md text-sm shadow">Export CSV</button>
-                        <button id="exportXlsxButton" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-4 rounded-md text-sm shadow">Export XLSX</button>
-                        <button id="exportPdfButton" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md text-sm shadow">Export PDF</button>
+                        <button id="exportCsvButton" class="bg-white border border-gray-300 text-gray-800 hover:border-gray-500 font-medium py-2 px-4 rounded-md text-sm">Export CSV</button>
+                        <button id="exportXlsxButton" class="bg-white border border-gray-300 text-gray-800 hover:border-gray-500 font-medium py-2 px-4 rounded-md text-sm">Export XLSX</button>
+                        <button id="exportPdfButton" class="bg-white border border-gray-300 text-gray-800 hover:border-gray-500 font-medium py-2 px-4 rounded-md text-sm">Export PDF</button>
                     </div>
                 </div>
                 <div class="mt-4 border-b border-gray-200">
@@ -200,7 +229,7 @@
         <footer class="text-center mt-12 text-sm text-gray-500">
             <p>&copy; <span id="currentYear"></span> Rainfall Analysis DSS. Developed By Dr. Dwarika Mohan Das & Er. Anshuman Nayak</p>
         </footer>
-    </div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>

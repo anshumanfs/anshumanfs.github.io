@@ -109,25 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateThemeIcon() {
-        const isDark = document.body.classList.contains("theme-dark");
-        $("#themeToggle i").attr("class", isDark ? "fa-solid fa-sun" : "fa-solid fa-moon");
-        $("#themeToggle").attr("title", isDark ? "Switch to light theme" : "Switch to dark theme");
-    }
 
-    $("#themeToggle").on("click", function () {
-        const isDark = document.body.classList.toggle("theme-dark");
-        try {
-            localStorage.setItem("theme", isDark ? "dark" : "light");
-        } catch (e) { }
-        updateThemeIcon();
-    });
 
     $("#uniqueCodeFormat").on("change", updateAffixFields);
     $("#uniqueCodeFormat, #uniqueCodePrefix, #uniqueCodeSuffix, #nameStartingSeries").on("input change", updateUniqueCodePreview);
     updateAffixFields();
     updateUniqueCodePreview();
-    updateThemeIcon();
 
     $("#soilLabelForm").on("submit", function (event) {
         event.preventDefault();
